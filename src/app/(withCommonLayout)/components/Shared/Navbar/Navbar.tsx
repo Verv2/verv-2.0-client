@@ -26,7 +26,7 @@ import { logout } from "@/services/AuthServices";
 const Navbar = () => {
   const { user, setIsLoading: userLoading } = useUser();
   console.log("User from navbar", user);
-  console.log("User photo", user?.landlord.profilePhoto);
+  // console.log("User photo", user?.landlord.profilePhoto);
 
   const router = useRouter();
 
@@ -46,6 +46,14 @@ const Navbar = () => {
       router.push("/profile/complete-profile");
     } else {
       router.push(`/profile/${userId}`);
+    }
+  };
+
+  const handleAddListing = () => {
+    if (!user?.isProfileUpdated) {
+      router.push("/profile/complete-profile");
+    } else {
+      router.push("/listing/add-property");
     }
   };
 
@@ -108,7 +116,7 @@ const Navbar = () => {
             </ul>
             <Button
               className="text-lg text-colorButton font-semibold bg-white rounded-[32px] w-[180px] h-[56px] py-2 px-4"
-              onClick={() => router.push("/listing/add-property")}
+              onClick={handleAddListing}
             >
               <HomeIcon width={25} height={24} />
               Add Listing
@@ -143,7 +151,7 @@ const Navbar = () => {
                         <Avatar className="cursor-pointer w-12 h-12">
                           <AvatarImage
                             src={
-                              user?.landlord.profilePhoto ||
+                              user?.landlord?.profilePhoto ??
                               "https://avatar.iran.liara.run/public"
                             }
                             alt="avatar"

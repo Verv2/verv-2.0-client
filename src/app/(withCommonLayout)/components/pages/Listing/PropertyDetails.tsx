@@ -230,12 +230,6 @@ const PropertyDetails = () => {
     // router.push("preview-listing");
   };
 
-  // if (imageFiles) {
-  //   for (const image of imageFiles) {
-  //     console.log("propertyImages", image);
-  //   }
-  // }
-
   // check if the first step is completed
   useEffect(() => {
     if (!hasHydrated) return; // Wait for hydration before checking state

@@ -73,7 +73,7 @@ const PropertyOptions = () => {
     router.push("property-details");
   };
 
-  if (temporaryListingLoading) {
+  if (temporaryListingLoading || isPending) {
     return <Loading />;
   }
 

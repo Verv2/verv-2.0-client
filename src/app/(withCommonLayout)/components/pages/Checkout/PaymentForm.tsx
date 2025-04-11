@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { useCreateListing } from "@/hooks/listing.hook";
 import { useCreatePaymentIntent } from "@/hooks/payment.hook";
-import { TPaymentProps } from "@/types";
+import { TPaymentProps, TPaymentSuccess } from "@/types";
 import {
   CardCvcElement,
   CardExpiryElement,
@@ -9,6 +10,8 @@ import {
   useStripe,
 } from "@stripe/react-stripe-js";
 import { useEffect, useState } from "react";
+import Loading from "../../UI/Loading/Loading";
+import { useRouter } from "next/navigation";
 
 const PaymentForm = ({ amount, planId, userData }: TPaymentProps) => {
   const stripe = useStripe();
@@ -19,7 +22,18 @@ const PaymentForm = ({ amount, planId, userData }: TPaymentProps) => {
   const [transactionId, setTransactionId] = useState("");
   const [clientSecret, setClientSecret] = useState("");
 
-  const { mutateAsync: createPaymentIntent } = useCreatePaymentIntent();
+  const router = useRouter();
+
+  const {
+    mutateAsync: createPaymentIntent,
+    isPending: isPaymentIntentPending,
+    isSuccess: isPaymentIntentSuccess,
+  } = useCreatePaymentIntent();
+  const {
+    mutateAsync: handleCreateListing,
+    isPending: isCreateListingPending,
+    isSuccess: isCreateListingSuccess,
+  } = useCreateListing();
 
   useEffect(() => {
     console.log("amount", amount);
@@ -78,9 +92,6 @@ const PaymentForm = ({ amount, planId, userData }: TPaymentProps) => {
         },
       });
 
-    // console.log("payment intent", paymentIntent);
-    // console.log("confirm error", confirmError);
-
     if (confirmError) {
       console.log("confirm error", confirmError);
     } else {
@@ -89,30 +100,21 @@ const PaymentForm = ({ amount, planId, userData }: TPaymentProps) => {
         console.log("transaction id", paymentIntent.id);
         setTransactionId(paymentIntent.id);
 
-        // now save the payment in the database
-        // const payment = {
-        //     email: user.email,
-        //     price: totalPrice,
-        //     transactionId: paymentIntent.id,
-        //     date: new Date(), // utc date convert. use moment js to
-        //     cartIds: cart.map(item => item._id),
-        //     menuItemIds: cart.map(item => item.menuId),
-        //     status: 'pending'
-        // }
+        const listingData: TPaymentSuccess = {
+          planId: planId!,
+          transactionId: paymentIntent.id,
+          propertyFor: "RENT",
+        };
 
-        // const res = await axiosSecure.post('/payments', payment);
-        // console.log('payment saved', res.data);
-        // refetch();
-        // if (res.data?.paymentResult?.insertedId) {
-        //     Swal.fire({
-        //         position: "top-end",
-        //         icon: "success",
-        //         title: "Thank you for the taka paisa",
-        //         showConfirmButton: false,
-        //         timer: 1500
-        //     });
-        //     navigate('/dashboard/paymentHistory')
-        // }
+        handleCreateListing(listingData);
+
+        if (isPaymentIntentPending || isCreateListingPending) {
+          return <Loading />;
+        }
+
+        if (isPaymentIntentSuccess || isCreateListingSuccess) {
+          router.push("/all-listings");
+        }
       }
     }
   };

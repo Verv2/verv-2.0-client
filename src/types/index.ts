@@ -231,3 +231,9 @@ export type TPaymentProps = {
   planId: string | null;
   userData: TPaymentUserData;
 };
+
+export type TPaymentSuccess = {
+  planId: string;
+  transactionId: string;
+  propertyFor: "RENT" | "SALE";
+};

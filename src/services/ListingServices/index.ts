@@ -2,6 +2,7 @@
 "use server";
 
 import axiosInstance from "@/lib/AxiosInstance";
+import { TPaymentSuccess } from "@/types";
 import { AxiosError } from "axios";
 
 export const addTemporaryListing = async (formData: FormData): Promise<any> => {
@@ -23,7 +24,26 @@ export const addTemporaryListing = async (formData: FormData): Promise<any> => {
 
     console.log(axiosError.response?.data || axiosError.message);
 
-    throw new Error("Failed to create user");
+    throw new Error("Failed to Temporary listing");
+  }
+};
+
+export const createListing = async (
+  listingData: TPaymentSuccess
+): Promise<any> => {
+  try {
+    const { data } = await axiosInstance.post(
+      "/listings/create-listing",
+      listingData
+    );
+
+    return data;
+  } catch (error) {
+    const axiosError = error as AxiosError;
+
+    console.log(axiosError.response?.data || axiosError.message);
+
+    throw new Error("Failed to create Listing");
   }
 };
 
