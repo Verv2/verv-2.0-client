@@ -237,3 +237,62 @@ export type TPaymentSuccess = {
   transactionId: string;
   propertyFor: "RENT" | "SALE";
 };
+
+export type TLandlord = {
+  id: string;
+  userId: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  languages: string[];
+  phoneNumber: string;
+  profilePhoto: string;
+  isDeleted: boolean;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type TGetListing = {
+  id: string;
+  landlordId: string;
+  email: string;
+  propertyOption: string;
+  postcode: string;
+  houseNumber: string;
+  address: string;
+  address2: string;
+  propertyType: "FLAT" | "HOUSE" | string; // You can refine this union
+  bedrooms: number;
+  bathrooms: number;
+  furnishingOptions: "FURNISHED" | "UNFURNISHED" | string; // You can refine this too
+  town: string;
+  description: string;
+  propertyImages: string[];
+  remoteVideoViewing: boolean;
+  viewingDescription: string | null;
+  youtubeUrl: string | null;
+  propertyFor: "RENT" | "SALE" | string;
+  monthlyRent: number;
+  minimumTenancy: number;
+  weeklyRent: number;
+  maximumTenancy: number;
+  depositAmount: string;
+  moveInDate: string;
+  billsIncluded: boolean;
+  gardenAccess: boolean;
+  parking: boolean;
+  fireplace: boolean;
+  studentAllowed: boolean;
+  familiesAllowed: boolean;
+  dssIncomeAccepted: boolean;
+  petsAllowed: boolean;
+  smokersAllowed: boolean;
+  termsAgreed: boolean;
+  planId: string;
+  transactionId: string;
+  isRented: boolean;
+  isDeleted: boolean;
+  createdAt: string;
+  updatedAt: string;
+  landlord: TLandlord;
+};

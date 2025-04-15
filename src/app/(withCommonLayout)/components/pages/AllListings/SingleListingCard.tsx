@@ -1,13 +1,14 @@
 import Image from "next/image";
-import propertyImage from "../../../../../assets/images/property-image.jpg";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { TGetListing } from "@/types";
 
-const SingleListingCard = () => {
+const SingleListingCard = ({ listing }: { listing: TGetListing }) => {
+  console.log("single listing", listing);
   return (
     <div className="flex w-[384px] h-[549px] flex-col justify-center items-center gap-[32px] rounded-[24px] bg-white shadow-[0px_4px_20px_0px_rgba(0,0,0,0.08)]">
       <Image
-        src={propertyImage}
+        src={listing.propertyImages[0]}
         alt="property"
         height={200}
         width={384}
@@ -21,7 +22,7 @@ const SingleListingCard = () => {
 
             <div className="flex items-baseline gap-[2px]">
               <p className="text-[#449A2B] font-inter text-[24px] font-semibold leading-[120%]">
-                £2,095
+                £{listing.monthlyRent}
               </p>
               <p className="text-[#000929] font-inter text-[16px] font-normal leading-[150%] opacity-50">
                 /month
@@ -29,10 +30,10 @@ const SingleListingCard = () => {
             </div>
             <div className="flex flex-col items-start gap-[8px] self-stretch">
               <p className="w-[336px] text-[#314660] font-inter text-[24px] font-semibold leading-[120%]">
-                Palm Harbor
+                {listing.town}
               </p>
               <p className="self-stretch text-[#56677D] font-inter text-[16px] font-normal leading-[150%]">
-                2699 Green Valley, Highland Lake, FL
+                {listing.address}
               </p>
               <div className="flex items-center gap-[4px]">
                 <div className="flex w-[20px] h-[20px] p-[1.667px] px-[2.5px] justify-center items-center">
@@ -83,7 +84,7 @@ const SingleListingCard = () => {
                 />
               </svg>
               <p className="text-[#56677D] font-inter text-[14px] font-normal leading-[150%]">
-                3 Beds
+                {listing.bedrooms} Beds
               </p>
             </div>
             {/* bathrooms */}
@@ -101,7 +102,7 @@ const SingleListingCard = () => {
                 />
               </svg>
               <p className="text-[#56677D] font-inter text-[14px] font-normal leading-[150%]">
-                2 Bathrooms
+                {listing.bathrooms} Bathrooms
               </p>
             </div>
             {/* dimension */}

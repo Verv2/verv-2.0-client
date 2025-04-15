@@ -4,6 +4,7 @@
 import { useGetAllListings } from "@/hooks/listing.hook";
 import SingleListingCard from "./SingleListingCard";
 import Loading from "../../UI/Loading/Loading";
+import { TGetListing } from "@/types";
 
 const AllListings = () => {
   const {
@@ -12,7 +13,7 @@ const AllListings = () => {
     isSuccess: listingDataSuccess,
   } = useGetAllListings();
 
-  console.log("listing data", listingData);
+  // console.log("listing data", listingData);
 
   if (listingDataLoading) {
     return <Loading />;
@@ -268,9 +269,9 @@ const AllListings = () => {
             {/* card */}
             <div className="flex flex-wrap items-start gap-[32px] self-stretch">
               {/* single card */}
-              {listingData.map((listing: any, index: number) => (
-                <div key={index}>
-                  <SingleListingCard />
+              {listingData.map((listing: TGetListing) => (
+                <div key={listing.id}>
+                  <SingleListingCard listing={listing} />
                 </div>
               ))}
             </div>
