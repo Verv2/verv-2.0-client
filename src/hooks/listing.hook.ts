@@ -2,6 +2,7 @@
 import {
   addTemporaryListing,
   createListing,
+  getAllListing,
   getTemporaryListing,
 } from "@/services/ListingServices";
 import { TPaymentSuccess } from "@/types";
@@ -39,5 +40,12 @@ export const useGetTemporaryListing = () => {
   return useQuery({
     queryKey: ["GET_TEMPORARY_LISTING"],
     queryFn: async () => await getTemporaryListing(),
+  });
+};
+
+export const useGetAllListings = () => {
+  return useQuery({
+    queryKey: ["GET_LISTINGS"],
+    queryFn: async () => await getAllListing(),
   });
 };

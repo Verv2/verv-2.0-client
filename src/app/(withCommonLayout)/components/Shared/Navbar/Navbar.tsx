@@ -41,7 +41,7 @@ const Navbar = () => {
   };
 
   const handleProfile = (userId: string) => {
-    console.log(userId);
+    console.log("user ID", userId);
     if (!user?.isProfileUpdated) {
       router.push("/profile/complete-profile");
     } else {
@@ -50,7 +50,9 @@ const Navbar = () => {
   };
 
   const handleAddListing = () => {
-    if (!user?.isProfileUpdated) {
+    if (!user) {
+      router.push("/login");
+    } else if (!user.isProfileUpdated) {
       router.push("/profile/complete-profile");
     } else {
       router.push("/listing/add-property");

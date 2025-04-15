@@ -56,3 +56,17 @@ export const getTemporaryListing = async () => {
     throw new Error(error.message);
   }
 };
+
+export const getAllListing = async () => {
+  try {
+    const { data } = await axiosInstance.get("/listings");
+
+    return data.data;
+  } catch (error) {
+    const axiosError = error as AxiosError;
+
+    console.log(axiosError.response?.data || axiosError.message);
+
+    throw new Error("Failed to create user");
+  }
+};
