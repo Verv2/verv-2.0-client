@@ -67,6 +67,20 @@ export const getAllListing = async () => {
 
     console.log(axiosError.response?.data || axiosError.message);
 
-    throw new Error("Failed to create user");
+    throw new Error("Failed to fetch the data");
+  }
+};
+
+export const getSingleListing = async (listingId: string) => {
+  try {
+    const { data } = await axiosInstance.get(`/listings/${listingId}`);
+
+    return data.data;
+  } catch (error) {
+    const axiosError = error as AxiosError;
+
+    console.log(axiosError.response?.data || axiosError.message);
+
+    throw new Error("Failed to fetch the data");
   }
 };

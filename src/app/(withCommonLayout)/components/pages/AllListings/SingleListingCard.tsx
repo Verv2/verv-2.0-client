@@ -159,7 +159,7 @@ const SingleListingCard = ({ listing }: { listing: TGetListing }) => {
         </p>
       </div>
 
-      <Link href="/listing-id">
+      <Link href={`/all-listings/${listing.id}`}>
         <Button className="flex w-[384px] h-[56px] p-[8px] px-[16px]  justify-center items-center gap-[8px] flex-shrink-0 rounded-b-[24px] bg-[#50B533]">
           <span className="text-[#FFF] font-inter text-[18px] font-semibold leading-normal">
             View Details

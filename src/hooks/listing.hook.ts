@@ -3,6 +3,7 @@ import {
   addTemporaryListing,
   createListing,
   getAllListing,
+  getSingleListing,
   getTemporaryListing,
 } from "@/services/ListingServices";
 import { TPaymentSuccess } from "@/types";
@@ -47,5 +48,12 @@ export const useGetAllListings = () => {
   return useQuery({
     queryKey: ["GET_LISTINGS"],
     queryFn: async () => await getAllListing(),
+  });
+};
+
+export const useGetSingleListing = (listingId: string) => {
+  return useQuery({
+    queryKey: ["GET_SINGLE_LISTING", listingId],
+    queryFn: () => getSingleListing(listingId),
   });
 };
