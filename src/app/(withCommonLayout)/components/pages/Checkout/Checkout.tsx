@@ -40,7 +40,7 @@ const Checkout = () => {
 
   console.log(planId);
   return (
-    <div>
+    <div className="lg:w-[1216px] w-94 mx-auto my-8">
       <h2>
         This is checkout components {planId} - {price}
       </h2>

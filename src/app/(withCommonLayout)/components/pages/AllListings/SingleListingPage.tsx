@@ -5,8 +5,8 @@ import { useGetSingleListing } from "@/hooks/listing.hook";
 const SingleListingPage = ({ listingId }: { listingId: string }) => {
   const {
     data: data,
-    isLoading: dataLoading,
-    isSuccess: dataSuccess,
+    // isLoading: dataLoading,
+    // isSuccess: dataSuccess,
   } = useGetSingleListing(listingId);
 
   console.log("Single Listing", data);

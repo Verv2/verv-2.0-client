@@ -1,5 +1,5 @@
 .property-description {
-  color: #333;
+  color: #56677d;
   font-size: 18px;
   line-height: 1.6;
 }
@@ -9,8 +9,8 @@
 }
 
 .property-description h1 {
-  font-size: 24px;
-  font-weight: bold;
+  font-size: 20px;
+  font-weight: 500;
   margin-bottom: 0.5rem;
 }
 

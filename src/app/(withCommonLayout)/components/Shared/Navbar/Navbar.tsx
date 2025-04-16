@@ -60,7 +60,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="px-10 py-6 bg-colorButton shadow-[0px_4px_4px_rgba(0,0,0,0.10)] hidden md:block sticky top-0 z-20">
+    <nav className="px-10 py-6 bg-colorButton hidden md:block sticky top-0 z-20">
       <div className="m-auto flex justify-between items-center text-white">
         <div className="flex items-center gap-20">
           <Link href="/">
