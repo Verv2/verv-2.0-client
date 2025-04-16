@@ -15,7 +15,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "@/components/ui/input";
 import { useCreateUserProfile } from "@/hooks/user.hooks";
 // import Loading from "../../UI/Loading/Loading";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import Loading from "../../../UI/Loading/Loading";
 import InputField from "../../../UI/Form/InputField";
 import ImageUploader from "../../../UI/ImageUploader/ImageUploader";
@@ -24,7 +24,7 @@ type TProfile = z.infer<typeof profileSchema>;
 
 const CompleteProfile = () => {
   const searchParams = useSearchParams();
-  const router = useRouter();
+  // const router = useRouter();
   const redirect = searchParams.get("redirect");
 
   const ref = useRef<MultipleSelectorRef>(null);
@@ -83,16 +83,27 @@ const CompleteProfile = () => {
     console.log("Form Data", formData.get("image"));
   };
 
+  // useEffect(() => {
+  //   if (!isPending && isSuccess) {
+  //     if (redirect) {
+  //       console.log("Redirect", redirect);
+  //       router.push(redirect);
+  //     } else {
+  //       router.push("/");
+  //     }
+  //   }
+  // }, [isPending, isSuccess, redirect, router]);
+
   useEffect(() => {
     if (!isPending && isSuccess) {
       if (redirect) {
         console.log("Redirect", redirect);
-        router.push(redirect);
+        window.location.href = redirect; // 🔁 Full reload + redirect
       } else {
-        router.push("/");
+        window.location.href = "/"; // 🔁 Full reload to home
       }
     }
-  }, [isPending, isSuccess, redirect, router]);
+  }, [isPending, isSuccess, redirect]);
 
   return (
     <>
