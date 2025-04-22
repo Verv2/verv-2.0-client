@@ -45,13 +45,25 @@ export const createUserProfile = async (formData: FormData): Promise<any> => {
   }
 };
 
-export const getUser = async (id: string): Promise<any> => {
-  console.log("From User Service get", id);
-  try {
-    const { data } = await axiosInstance.get(`/user/${id}`);
+// export const getUser = async (id: string): Promise<any> => {
+//   console.log("From User Service get", id);
+//   try {
+//     const { data } = await axiosInstance.get(`/user/${id}`);
 
-    // revalidateTag("users");
-    // console.log(data.data);
+//     return data.data;
+//   } catch (error) {
+//     const axiosError = error as AxiosError;
+
+//     console.log(axiosError.response?.data || axiosError.message);
+
+//     throw new Error("Failed to create user");
+//   }
+// };
+
+export const getUser = async (): Promise<any> => {
+  console.log("From User Service get");
+  try {
+    const { data } = await axiosInstance.get("user/me");
 
     return data.data;
   } catch (error) {

@@ -16,7 +16,7 @@ export const useAddTemporaryListing = () => {
     mutationFn: async (temporaryData) =>
       await addTemporaryListing(temporaryData),
     onSuccess: () => {
-      toast.success("Temporary Listing Added Successfully!");
+      console.log("Temporary Listing Added Successfully!");
     },
     onError: (error) => {
       toast.error(error.message);

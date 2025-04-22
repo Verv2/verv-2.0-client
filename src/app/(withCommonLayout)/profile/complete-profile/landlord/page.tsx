@@ -1,6 +1,6 @@
 import { Suspense } from "react";
-import CompleteProfile from "../../components/pages/Profile/CompleteProfile/CompleteProfile";
-import Loading from "../../components/UI/Loading/Loading";
+import CompleteProfile from "../../../components/pages/Profile/CompleteProfile/CompleteProfile";
+import Loading from "../../../components/UI/Loading/Loading";
 
 const page = () => {
   return (

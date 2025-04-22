@@ -43,9 +43,17 @@ const Navbar = () => {
   const handleProfile = (userId: string) => {
     console.log("user ID", userId);
     if (!user?.isProfileUpdated) {
-      router.push("/profile/complete-profile");
+      if (user?.role === "LANDLORD") {
+        router.push("/profile/complete-profile/landlord");
+      } else if (user?.role === "TENANT") {
+        router.push("/profile/complete-profile/tenant");
+      }
     } else {
-      router.push(`/profile/${userId}`);
+      if (user?.role === "LANDLORD") {
+        router.push(`/profile/landlord/${userId}`);
+      } else if (user?.role === "TENANT") {
+        router.push(`/profile/tenant/${userId}`);
+      }
     }
   };
 
@@ -116,6 +124,18 @@ const Navbar = () => {
               </li>
               <li className="flex justify-center items-center">Agent Finder</li>
             </ul>
+            {/* <Button
+              className="text-lg text-colorButton font-semibold bg-white rounded-[32px] w-[180px] h-[56px] py-2 px-4"
+              onClick={handleAddListing}
+            >
+              <HomeIcon width={25} height={24} />
+              Add Listing
+            </Button> */}
+          </div>
+        </div>
+        <div className="text-lg flex justify-end items-center gap-14">
+          {/* signin/register */}
+          <div className="flex justify-end items-center gap-6 font-medium">
             <Button
               className="text-lg text-colorButton font-semibold bg-white rounded-[32px] w-[180px] h-[56px] py-2 px-4"
               onClick={handleAddListing}
@@ -123,11 +143,6 @@ const Navbar = () => {
               <HomeIcon width={25} height={24} />
               Add Listing
             </Button>
-          </div>
-        </div>
-        <div className="text-lg flex justify-end items-center gap-14">
-          {/* signin/register */}
-          <div className="flex justify-end items-center gap-6 font-medium">
             <ul className="flex items-center justify-center gap-2">
               {!user ? (
                 <li>
@@ -153,7 +168,7 @@ const Navbar = () => {
                         <Avatar className="cursor-pointer w-12 h-12">
                           <AvatarImage
                             src={
-                              user?.landlord?.profilePhoto ??
+                              user?.profilePhoto ??
                               "https://avatar.iran.liara.run/public"
                             }
                             alt="avatar"
