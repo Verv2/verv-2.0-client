@@ -73,4 +73,40 @@ export const tenantProfileSchema = z.object({
       invalid_type_error: "Maximum age must be a number",
     })
     .min(1, "Maximum age is required"),
+
+  householdOccupation: z
+    .string({ required_error: "Please write occupation for household" })
+    .min(2, "Occupation is required"),
+
+  householdMinAge: z
+    .number({
+      required_error: "Please enter the minimum age",
+      invalid_type_error: "Minimum age must be a number",
+    })
+    .min(1, "Minimum age is required"),
+
+  householdMaxAge: z
+    .number({
+      required_error: "Please enter the maximum age",
+      invalid_type_error: "Maximum age must be a number",
+    })
+    .min(1, "Maximum age is required"),
+
+  householdGender: z.enum(["MALE", "FEMALE", "OTHER"], {
+    required_error: "Please select an option",
+  }),
+  isSmoker: z.boolean().default(false),
+  isPetOwner: z.boolean().default(false),
+
+  moveIn: z.enum(["Now"], {
+    required_error: "Please select an option",
+  }),
+
+  minTerm: z
+    .string({ required_error: "Please select a minimum term" })
+    .min(2, "Min Term is required"),
+
+  maxTerm: z
+    .string({ required_error: "Please select a maximum term" })
+    .min(2, "Max Term is required"),
 });

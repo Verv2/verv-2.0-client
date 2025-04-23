@@ -61,7 +61,7 @@ const Navbar = () => {
     if (!user) {
       router.push("/login");
     } else if (!user.isProfileUpdated) {
-      router.push("/profile/complete-profile");
+      router.push("/profile/complete-profile/landlord");
     } else {
       router.push("/listing/add-property");
     }
@@ -136,13 +136,16 @@ const Navbar = () => {
         <div className="text-lg flex justify-end items-center gap-14">
           {/* signin/register */}
           <div className="flex justify-end items-center gap-6 font-medium">
-            <Button
-              className="text-lg text-colorButton font-semibold bg-white rounded-[32px] w-[180px] h-[56px] py-2 px-4"
-              onClick={handleAddListing}
-            >
-              <HomeIcon width={25} height={24} />
-              Add Listing
-            </Button>
+            {user?.role === "LANDLORD" && (
+              <Button
+                className="text-lg text-colorButton font-semibold bg-white rounded-[32px] w-[180px] h-[56px] py-2 px-4"
+                onClick={handleAddListing}
+              >
+                <HomeIcon width={25} height={24} />
+                Add Listing
+              </Button>
+            )}
+
             <ul className="flex items-center justify-center gap-2">
               {!user ? (
                 <li>

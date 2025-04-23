@@ -35,6 +35,9 @@ export interface IUser {
 export interface IUserContext {
   id: string;
   email: string;
+  firstName: string;
+  lastName: string;
+  phoneNumber: string;
   role: "SUPER_ADMIN" | "ADMIN" | "LANDLORD" | "TENANT";
   profilePhoto: string;
   isProfileUpdated: boolean;

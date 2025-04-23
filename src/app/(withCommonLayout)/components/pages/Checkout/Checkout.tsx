@@ -17,8 +17,8 @@ const Checkout = () => {
   const { user } = useUser();
 
   const email = user?.email;
-  const fullName = user?.landlord.firstName + " " + user?.landlord.lastName;
-  const phoneNumber = user?.landlord.phoneNumber;
+  const fullName = user?.firstName + " " + user?.lastName;
+  const phoneNumber = user?.phoneNumber;
 
   const userData: TPaymentUserData = {
     email,
