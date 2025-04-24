@@ -54,7 +54,7 @@ const PropertyDetails = () => {
 
   // get the date field
   const [date, setDate] = useState<Date | undefined>(new Date());
-  const [addresses, setAddresses] = useState<TAddresses>([]);
+  const [addresses, setAddresses] = useState<TAddresses | []>([]);
 
   // for image uploading
   const [imageFiles, setImageFiles] = useState<File[] | null>(null);
@@ -73,7 +73,19 @@ const PropertyDetails = () => {
   );
   const hasHydrated = usePropertyDetailsStore((state) => state.hasHydrated);
 
-  // const { setFilesToStore } = useFileStore();
+  let addressOptions;
+  if (addresses) {
+    addressOptions = Array.isArray(addresses)
+      ? addresses.map((address: TAddresses) => {
+          return {
+            label: address.address,
+            value: address.address,
+          };
+        })
+      : [];
+  }
+
+  console.log("address", addressOptions);
 
   const {
     control,
@@ -306,6 +318,19 @@ const PropertyDetails = () => {
                   Find Address
                 </Button>
               </div>
+
+              {/* address */}
+              {/* {addressOptions && (
+                <SelectField
+                  registerName="address"
+                  label="Select your address"
+                  control={control} // Pass the correctly typed control
+                  errors={errors}
+                  options={addressOptions}
+                />
+              )} */}
+              {/* end address */}
+
               <InputField
                 registerName="address"
                 label="Address"
