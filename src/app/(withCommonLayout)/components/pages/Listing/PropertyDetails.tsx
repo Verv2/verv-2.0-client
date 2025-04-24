@@ -32,6 +32,8 @@ import {
   useGetTemporaryListing,
 } from "@/hooks/listing.hook";
 import Loading from "../../UI/Loading/Loading";
+import { getAddresses } from "@/services/APIServices";
+import { TAddresses } from "@/types";
 
 const PropertyDetails = () => {
   const { mutate: handleCreateTemporaryListing, isPending } =
@@ -52,6 +54,7 @@ const PropertyDetails = () => {
 
   // get the date field
   const [date, setDate] = useState<Date | undefined>(new Date());
+  const [addresses, setAddresses] = useState<TAddresses>([]);
 
   // for image uploading
   const [imageFiles, setImageFiles] = useState<File[] | null>(null);
@@ -78,6 +81,7 @@ const PropertyDetails = () => {
     reset,
     watch,
     setValue,
+    getValues,
     handleSubmit,
     formState: { errors },
   } = useForm<TPropertyDetails>({
@@ -110,8 +114,6 @@ const PropertyDetails = () => {
       petsAllowed: false,
       smokersAllowed: false,
       termsAgreed: false,
-      // description: "This is default values",
-      // postcode: "default",
     },
   });
 
@@ -151,6 +153,19 @@ const PropertyDetails = () => {
       // setIsLoading(false);
     }
   };
+
+  const handlePostcode = async (postcode: string) => {
+    try {
+      const response = await getAddresses(postcode);
+      setAddresses(response?.suggestions);
+    } catch (error: any) {
+      console.error(error);
+      setError(error.message);
+      // setIsLoading(false);
+    }
+  };
+
+  console.log("Address data response", addresses);
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     // console.log(data);
@@ -204,7 +219,7 @@ const PropertyDetails = () => {
         termsAgreed: data.termsAgreed,
       };
 
-      console.log("propertyData", propertyData);
+      // console.log("propertyData", propertyData);
 
       const temporaryData = {
         step: "Property Details",
@@ -279,7 +294,14 @@ const PropertyDetails = () => {
                   errors={errors}
                   className="w-full"
                 />
-                <Button type="button" className="bg-colorButton">
+                <Button
+                  type="button"
+                  className="bg-colorButton"
+                  onClick={() => {
+                    const postcode = getValues("postcode");
+                    handlePostcode(postcode);
+                  }}
+                >
                   <SearchIcon />
                   Find Address
                 </Button>

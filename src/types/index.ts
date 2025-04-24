@@ -312,3 +312,9 @@ export type TSearchListing = {
   searchTerm: string;
   propertyFor: string;
 };
+
+export type TAddresses = {
+  address: string;
+  id: string;
+  url: string;
+};
