@@ -16,9 +16,10 @@ export const registerUser = async (userData: FieldValues): Promise<any> => {
   } catch (error) {
     const axiosError = error as AxiosError;
 
-    console.log(axiosError.response?.data || axiosError.message);
-
-    throw new Error("Failed to create user");
+    const errorMessage =
+      (axiosError.response?.data as { message?: string })?.message ||
+      axiosError.message;
+    throw new Error(errorMessage);
   }
 };
 
@@ -41,7 +42,11 @@ export const createUserProfile = async (formData: FormData): Promise<any> => {
 
     console.log(axiosError.response?.data || axiosError.message);
 
-    throw new Error("Failed to create user");
+    const errorMessage =
+      (axiosError.response?.data as { message?: string })?.message ||
+      axiosError.message;
+
+    throw new Error(errorMessage);
   }
 };
 
@@ -70,7 +75,10 @@ export const getUser = async (): Promise<any> => {
     const axiosError = error as AxiosError;
 
     console.log(axiosError.response?.data || axiosError.message);
+    const errorMessage =
+      (axiosError.response?.data as { message?: string })?.message ||
+      axiosError.message;
 
-    throw new Error("Failed to create user");
+    throw new Error(errorMessage);
   }
 };

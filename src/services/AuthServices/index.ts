@@ -23,8 +23,11 @@ export const loginUser = async (userData: FieldValues) => {
     const axiosError = error as AxiosError;
 
     console.log(axiosError.response?.data || axiosError.message);
+    const errorMessage =
+      (axiosError.response?.data as { message?: string })?.message ||
+      axiosError.message;
 
-    throw new Error("Failed to login user");
+    throw new Error(errorMessage);
   }
 };
 

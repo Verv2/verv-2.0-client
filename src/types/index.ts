@@ -307,3 +307,8 @@ export type TGetListing = {
   updatedAt: string;
   landlord: TLandlord;
 };
+
+export type TSearchListing = {
+  searchTerm: string;
+  propertyFor: string;
+};
