@@ -33,7 +33,8 @@ import {
 } from "@/hooks/listing.hook";
 import Loading from "../../UI/Loading/Loading";
 import { getAddresses } from "@/services/APIServices";
-import { TAddresses } from "@/types";
+import { IOptionGroup, TAddresses } from "@/types";
+import { getAddressOptions } from "@/helpers/createOptions";
 
 const PropertyDetails = () => {
   const { mutate: handleCreateTemporaryListing, isPending } =
@@ -54,7 +55,11 @@ const PropertyDetails = () => {
 
   // get the date field
   const [date, setDate] = useState<Date | undefined>(new Date());
+
+  // for get address api
   const [addresses, setAddresses] = useState<TAddresses | []>([]);
+  const [addressOptions, setAddressOptions] = useState<IOptionGroup[]>([]);
+  const [isAddressLoading, setIsAddressLoading] = useState<boolean>(false);
 
   // for image uploading
   const [imageFiles, setImageFiles] = useState<File[] | null>(null);
@@ -73,20 +78,6 @@ const PropertyDetails = () => {
   );
   const hasHydrated = usePropertyDetailsStore((state) => state.hasHydrated);
 
-  let addressOptions;
-  if (addresses) {
-    addressOptions = Array.isArray(addresses)
-      ? addresses.map((address: TAddresses) => {
-          return {
-            label: address.address,
-            value: address.address,
-          };
-        })
-      : [];
-  }
-
-  console.log("address", addressOptions);
-
   const {
     control,
     register,
@@ -101,7 +92,7 @@ const PropertyDetails = () => {
     defaultValues: {
       postcode: "NH300",
       houseNumber: "4A",
-      address: "12 Brushfield Street",
+      // address: "12 Brushfield Street",
       address2: "",
       propertyType: "FLAT",
       bedrooms: 1,
@@ -166,18 +157,38 @@ const PropertyDetails = () => {
     }
   };
 
+  // const handlePostcode = async (postcode: string) => {
+  //   try {
+  //     const response = await getAddresses(postcode);
+  //     const options = getAddressOptions(response?.suggestions);
+
+  //     setAddresses(response?.suggestions);
+  //     setAddressOptions(options as IOptionGroup[]);
+  //   } catch (error: any) {
+  //     console.error(error);
+  //     setError(error.message);
+  //     // setIsLoading(false);
+  //   }
+  // };
+
   const handlePostcode = async (postcode: string) => {
+    setIsAddressLoading(true); // start loading
     try {
       const response = await getAddresses(postcode);
+      const options = getAddressOptions(response?.suggestions);
+
       setAddresses(response?.suggestions);
+      setAddressOptions(options as IOptionGroup[]);
     } catch (error: any) {
       console.error(error);
       setError(error.message);
-      // setIsLoading(false);
+    } finally {
+      setIsAddressLoading(false); // stop loading
     }
   };
 
   console.log("Address data response", addresses);
+  console.log("Address data options", addressOptions);
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     // console.log(data);
@@ -313,32 +324,33 @@ const PropertyDetails = () => {
                     const postcode = getValues("postcode");
                     handlePostcode(postcode);
                   }}
+                  disabled={isAddressLoading}
                 >
                   <SearchIcon />
-                  Find Address
+                  {isAddressLoading ? "Loading..." : "Find Address"}
                 </Button>
               </div>
 
               {/* address */}
-              {/* {addressOptions && (
+              {addressOptions?.[0]?.options?.length > 0 && (
                 <SelectField
                   registerName="address"
                   label="Select your address"
-                  control={control} // Pass the correctly typed control
+                  control={control}
                   errors={errors}
                   options={addressOptions}
                 />
-              )} */}
+              )}
               {/* end address */}
 
-              <InputField
+              {/* <InputField
                 registerName="address"
                 label="Address"
                 type="text"
                 placeholder="Enter your address"
                 register={register}
                 errors={errors}
-              />
+              /> */}
               <InputField
                 registerName="address2"
                 label="Address Line 2 (Optional)"

@@ -105,7 +105,7 @@ export interface InputFieldProps {
   errors?: FieldErrors<any>;
 }
 
-interface IOptionGroup {
+export interface IOptionGroup {
   label: string;
   options: { value: string; label: string }[];
 }
