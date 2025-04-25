@@ -32,7 +32,7 @@ import {
   useGetTemporaryListing,
 } from "@/hooks/listing.hook";
 import Loading from "../../UI/Loading/Loading";
-import { getAddresses } from "@/services/APIServices";
+import { getAddresses, getSingleAddresses } from "@/services/APIServices";
 import { IOptionGroup, TAddresses } from "@/types";
 import { getAddressOptions } from "@/helpers/createOptions";
 
@@ -57,7 +57,7 @@ const PropertyDetails = () => {
   const [date, setDate] = useState<Date | undefined>(new Date());
 
   // for get address api
-  const [addresses, setAddresses] = useState<TAddresses | []>([]);
+  const [addresses, setAddresses] = useState<Array<TAddresses>>([]);
   const [addressOptions, setAddressOptions] = useState<IOptionGroup[]>([]);
   const [isAddressLoading, setIsAddressLoading] = useState<boolean>(false);
 
@@ -187,8 +187,11 @@ const PropertyDetails = () => {
     }
   };
 
+  const selectedAddress = watch("address");
+
   console.log("Address data response", addresses);
   console.log("Address data options", addressOptions);
+  console.log("Selected Address", selectedAddress);
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     // console.log(data);
@@ -278,6 +281,30 @@ const PropertyDetails = () => {
       router.push("/listing/add-property");
     }
   }, [hasHydrated, propertyOption, router]);
+
+  // select single address data to find all the information about latitude and longitude
+  useEffect(() => {
+    const fetchSingleAddress = async () => {
+      if (!selectedAddress) return;
+
+      const selected = Array.isArray(addresses)
+        ? addresses.find(
+            (item: { address: string }) => item.address === selectedAddress
+          )
+        : undefined;
+
+      if (!selected) return;
+
+      try {
+        const data = await getSingleAddresses(selected.id);
+        console.log("Fetched full address data:", data);
+      } catch (error) {
+        console.error("Error fetching single address:", error);
+      }
+    };
+
+    fetchSingleAddress();
+  }, [selectedAddress, addresses]);
 
   // for file upload
   useEffect(() => {
