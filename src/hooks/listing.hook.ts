@@ -44,10 +44,17 @@ export const useGetTemporaryListing = () => {
   });
 };
 
-export const useGetAllListings = () => {
+// export const useGetAllListings = () => {
+//   return useQuery({
+//     queryKey: ["GET_LISTINGS"],
+//     queryFn: async () => await getAllListing(),
+//   });
+// };
+
+export const useGetAllListings = (queryParams: Record<string, string>) => {
   return useQuery({
-    queryKey: ["GET_LISTINGS"],
-    queryFn: async () => await getAllListing(),
+    queryKey: ["GET_LISTINGS", queryParams],
+    queryFn: async () => await getAllListing(queryParams),
   });
 };
 

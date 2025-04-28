@@ -57,9 +57,26 @@ export const getTemporaryListing = async () => {
   }
 };
 
-export const getAllListing = async () => {
+// export const getAllListing = async () => {
+//   try {
+//     const { data } = await axiosInstance.get("/listings");
+
+//     return data.data;
+//   } catch (error) {
+//     const axiosError = error as AxiosError;
+
+//     console.log(axiosError.response?.data || axiosError.message);
+
+//     throw new Error("Failed to fetch the data");
+//   }
+// };
+
+export const getAllListing = async (queryParams: Record<string, string>) => {
+  console.log("queryParams", queryParams);
   try {
-    const { data } = await axiosInstance.get("/listings");
+    const { data } = await axiosInstance.get("/listings", {
+      params: queryParams,
+    });
 
     return data.data;
   } catch (error) {

@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { TGetListing } from "@/types";
 
 const SingleListingCard = ({ listing }: { listing: TGetListing }) => {
-  console.log("single listing", listing);
+  // console.log("single listing", listing);
   return (
     <div className="flex w-[384px] h-[549px] flex-col justify-center items-center gap-[32px] rounded-[24px] bg-white shadow-[0px_4px_20px_0px_rgba(0,0,0,0.08)]">
       <Image

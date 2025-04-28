@@ -35,7 +35,7 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
 }) => {
   const dropZoneConfig = {
     maxFiles: maxFiles,
-    maxSize: 1024 * 1024 * 4,
+    maxSize: 1024 * 1024 * 5,
     multiple: isMultiple,
     accept: {
       "image/*": fileTypes,

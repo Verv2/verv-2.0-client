@@ -4,15 +4,18 @@ import { useGetAllListings } from "@/hooks/listing.hook";
 import SingleListingCard from "./SingleListingCard";
 import Loading from "../../UI/Loading/Loading";
 import { TGetListing } from "@/types";
+import { useSearchParams } from "next/navigation";
+import { searchParamsToObject } from "@/helpers/searchParamsToObject";
 
 const AllListings = () => {
+  const searchParams = useSearchParams();
+  const paramsObject = searchParamsToObject(searchParams);
+
   const {
     data: listingData,
     isLoading: listingDataLoading,
     isSuccess: listingDataSuccess,
-  } = useGetAllListings();
-
-  // console.log("listing data", listingData);
+  } = useGetAllListings(paramsObject);
 
   if (listingDataLoading) {
     return <Loading />;

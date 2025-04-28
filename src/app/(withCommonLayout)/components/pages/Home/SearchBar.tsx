@@ -5,39 +5,22 @@ import { useSearchListing } from "@/hooks/search.hook";
 import { TGetListing } from "@/types";
 import { MapPin, Search } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-
-// type ToggleType = "Buy" | "Rent";
-
-// type LocationItem = {
-//   location: string;
-// };
-
-// const demoData: Record<ToggleType, LocationItem[]> = {
-//   Buy: [
-//     { location: "New York City" },
-//     { location: "Los Angeles" },
-//     { location: "Miami" },
-//   ],
-//   Rent: [
-//     { location: "San Francisco" },
-//     { location: "Chicago" },
-//     { location: "Austin" },
-//   ],
-// };
 
 const SearchBar = () => {
   const [toggle, setToggle] = useState("Rent");
   const [searchResults, setSearchResults] = useState<TGetListing[] | []>([]);
+  // const [query, setQuery] = useState<string>("");
+  const router = useRouter();
+
   const {
     mutate: handleSearchListing,
     data,
     isPending,
     isSuccess,
   } = useSearchListing();
-
-  // const [query, setQuery] = useState("");
 
   const { register, handleSubmit, watch } = useForm();
   const searchTerm = useDebounce(watch("search"));
@@ -67,7 +50,19 @@ const SearchBar = () => {
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     // handleSeeAll(data.search);
-    console.log("Search submitted:", data);
+    const queryData = {
+      searchTerm: data.search,
+      propertyFor: toggle.toUpperCase(),
+    };
+    // setQuery(data.search);
+    console.log("Search submitted:", queryData);
+  };
+
+  const handleSeeAll = (query: string) => {
+    const queryString = query.trim().split(" ").join("+");
+    router.push(
+      `/all-listings?searchTerm=${queryString}&propertyFor=${toggle.toUpperCase()}`
+    );
   };
 
   return (
@@ -150,7 +145,7 @@ const SearchBar = () => {
           <div className="mt-3 flex justify-center border-t-1 border-default-50 pt-3">
             <button
               className="flex items-center justify-center gap-1"
-              // onClick={() => handleSeeAll(searchTerm)}
+              onClick={() => handleSeeAll(searchTerm)}
             >
               <span>See All</span>
             </button>
