@@ -59,6 +59,7 @@ const PropertyDetails = () => {
   // for get address api
   const [addresses, setAddresses] = useState<Array<TAddresses>>([]);
   const [addressOptions, setAddressOptions] = useState<IOptionGroup[]>([]);
+  const [singleAddress, setSingleAddress] = useState([]);
   const [isAddressLoading, setIsAddressLoading] = useState<boolean>(false);
 
   // for image uploading
@@ -90,7 +91,7 @@ const PropertyDetails = () => {
   } = useForm<TPropertyDetails>({
     resolver: zodResolver(propertyDetailsSchema),
     defaultValues: {
-      postcode: "NH300",
+      postcode: "SW1A 1AA",
       houseNumber: "4A",
       // address: "12 Brushfield Street",
       address2: "",
@@ -297,7 +298,8 @@ const PropertyDetails = () => {
 
       try {
         const data = await getSingleAddresses(selected.id);
-        console.log("Fetched full address data:", data);
+        setSingleAddress(data);
+        // setValue("address2", data?.line_2);
       } catch (error) {
         console.error("Error fetching single address:", error);
       }
@@ -305,6 +307,11 @@ const PropertyDetails = () => {
 
     fetchSingleAddress();
   }, [selectedAddress, addresses]);
+
+  console.log("Fetched full address data:", singleAddress);
+  // if (singleAddress) {
+  //   setValue("address2", singleAddress?.line_2);
+  // }
 
   // for file upload
   useEffect(() => {

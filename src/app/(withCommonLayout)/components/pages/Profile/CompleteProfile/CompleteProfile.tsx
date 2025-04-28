@@ -55,9 +55,9 @@ const CompleteProfile = () => {
       isValid = false;
     }
 
-    if (!image || image.length === 0) {
-      isValid = false;
-    }
+    // if (!image || image.length === 0) {
+    //   isValid = false;
+    // }
 
     if (!isValid) return; // Stop form submission
 
@@ -191,9 +191,9 @@ const CompleteProfile = () => {
                 your photos
               </p>
             </ImageUploader>
-            {formSubmitted && (!image || image.length === 0) && (
+            {/* {formSubmitted && (!image || image.length === 0) && (
               <p className="text-red-500 text-sm">Please upload a file.</p>
-            )}
+            )} */}
           </div>
 
           <div>

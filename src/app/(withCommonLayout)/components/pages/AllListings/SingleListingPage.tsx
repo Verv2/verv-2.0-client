@@ -457,7 +457,7 @@ const SingleListingPage = ({ listingId }: { listingId: string }) => {
               <div>
                 <Avatar className="w-[120px] h-[120px]">
                   <AvatarImage
-                    src={data.landlord.profilePhoto}
+                    src={data.landlord?.profilePhoto}
                     alt="landlord-photo"
                   />
                   <AvatarFallback>CN</AvatarFallback>

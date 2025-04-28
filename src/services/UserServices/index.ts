@@ -27,7 +27,7 @@ export const createUserProfile = async (formData: FormData): Promise<any> => {
   console.log("Form Data from UserService");
   try {
     const { data } = await axiosInstance.post(
-      "/user/create-profile",
+      "/landlord/create-landlord-profile",
       formData,
       {
         headers: {
