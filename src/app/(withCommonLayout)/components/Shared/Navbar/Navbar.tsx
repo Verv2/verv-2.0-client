@@ -25,7 +25,7 @@ import { logout } from "@/services/AuthServices";
 
 const Navbar = () => {
   const { user, setIsLoading: userLoading } = useUser();
-  console.log("User from navbar", user);
+  // console.log("User from navbar", user);
   // console.log("User photo", user?.landlord.profilePhoto);
 
   const router = useRouter();
@@ -100,7 +100,7 @@ const Navbar = () => {
                 </DropdownMenu>
               </li>
               <li className="flex justify-center items-center">
-                <DropdownMenu>
+                {/* <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <Button variant="ghost" className="text-lg p-0 m-0">
                       Pricing
@@ -114,13 +114,14 @@ const Navbar = () => {
                       </DropdownMenuItem>
                       <DropdownMenuItem>
                         <span>Pricing II</span>
-                      </DropdownMenuItem>
+                      </DropdownMenuItem> 
                       <DropdownMenuItem>
                         <span>Pricing III</span>
                       </DropdownMenuItem>
                     </DropdownMenuGroup>
                   </DropdownMenuContent>
-                </DropdownMenu>
+                </DropdownMenu> */}
+                <Link href="/pricing">Pricing</Link>
               </li>
               <li className="flex justify-center items-center">Agent Finder</li>
             </ul>

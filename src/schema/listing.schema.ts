@@ -153,6 +153,8 @@ export const propertyDetailsStoreSchema = z.object({
     furnishingOptions: z.enum(["Furnished", "Unfurnished", "Choice"]),
     town: z.string().min(1, "Town is required"),
     description: z.string().min(1, "Description is required"),
+    latitude: z.number().optional(),
+    longitude: z.number().optional(),
   }),
 
   tenancyDetails: z.object({

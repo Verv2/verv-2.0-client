@@ -100,6 +100,8 @@ const page = () => {
     furnishingOptions: propertyDetails?.furnishingOptions ?? "",
     houseNumber: propertyDetails?.houseNumber ?? "",
     postcode: propertyDetails?.postcode ?? "",
+    latitude: propertyDetails?.latitude ?? 0,
+    longitude: propertyDetails?.longitude ?? 0,
     propertyType: propertyDetails?.propertyType ?? "",
     propertyImages: propertyImages ?? [],
     remoteVideoViewing: remoteVideoViewing ?? false,

@@ -29,7 +29,7 @@ const TextEditor = <T extends FieldValues>({
   errors,
 }: RichTextEditorFieldProps<T>) => {
   return (
-    <div className="w-full ">
+    <div className="w-full">
       {label && <label className="block font-medium mb-2">{label}</label>}
       <Controller
         name={registerName}

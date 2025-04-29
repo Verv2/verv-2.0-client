@@ -10,6 +10,7 @@ import {
 import { Label } from "@/components/ui/label";
 import { ISelectFieldProps } from "@/types";
 import { Controller, FieldValues } from "react-hook-form";
+import { useEffect, useRef } from "react";
 
 const SelectField = <T extends FieldValues>({
   className,
@@ -19,8 +20,16 @@ const SelectField = <T extends FieldValues>({
   errors,
   options,
 }: ISelectFieldProps<T>) => {
+  const fieldRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (errors?.[registerName]) {
+      fieldRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  }, [errors, registerName]);
+
   return (
-    <div className={className}>
+    <div className={className} ref={fieldRef}>
       {label && <Label htmlFor={registerName}>{label}</Label>}
       <Controller
         name={registerName}

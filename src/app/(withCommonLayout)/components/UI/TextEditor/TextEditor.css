@@ -9,6 +9,8 @@
 .ql-editor {
   border-radius: 16px !important;
   background-color: transparent !important;
+  font-size: 16px !important;
+  line-height: 2 !important;
 }
 
 /* Remove toolbar border (if needed) */

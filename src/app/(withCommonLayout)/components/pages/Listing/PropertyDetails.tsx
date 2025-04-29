@@ -33,7 +33,7 @@ import {
 } from "@/hooks/listing.hook";
 import Loading from "../../UI/Loading/Loading";
 import { getAddresses, getSingleAddresses } from "@/services/APIServices";
-import { IOptionGroup, TAddresses } from "@/types";
+import { IOptionGroup, TAddresses, TAddressInfo } from "@/types";
 import { getAddressOptions } from "@/helpers/createOptions";
 
 const PropertyDetails = () => {
@@ -59,7 +59,7 @@ const PropertyDetails = () => {
   // for get address api
   const [addresses, setAddresses] = useState<Array<TAddresses>>([]);
   const [addressOptions, setAddressOptions] = useState<IOptionGroup[]>([]);
-  const [singleAddress, setSingleAddress] = useState([]);
+  const [singleAddress, setSingleAddress] = useState<TAddressInfo | null>(null);
   const [isAddressLoading, setIsAddressLoading] = useState<boolean>(false);
 
   // for image uploading
@@ -99,7 +99,7 @@ const PropertyDetails = () => {
       bedrooms: 1,
       bathrooms: 1,
       furnishingOptions: "FURNISHED",
-      town: "London",
+      // town: "London",
       description: "This is a description of the property",
       monthlyRent: 1200,
       minimumTenancy: 4,
@@ -158,22 +158,8 @@ const PropertyDetails = () => {
     }
   };
 
-  // const handlePostcode = async (postcode: string) => {
-  //   try {
-  //     const response = await getAddresses(postcode);
-  //     const options = getAddressOptions(response?.suggestions);
-
-  //     setAddresses(response?.suggestions);
-  //     setAddressOptions(options as IOptionGroup[]);
-  //   } catch (error: any) {
-  //     console.error(error);
-  //     setError(error.message);
-  //     // setIsLoading(false);
-  //   }
-  // };
-
   const handlePostcode = async (postcode: string) => {
-    setIsAddressLoading(true); // start loading
+    setIsAddressLoading(true);
     try {
       const response = await getAddresses(postcode);
       const options = getAddressOptions(response?.suggestions);
@@ -184,7 +170,7 @@ const PropertyDetails = () => {
       console.error(error);
       setError(error.message);
     } finally {
-      setIsAddressLoading(false); // stop loading
+      setIsAddressLoading(false);
     }
   };
 
@@ -208,6 +194,8 @@ const PropertyDetails = () => {
         bathrooms: data.bathrooms,
         furnishingOptions: data.furnishingOptions,
         description: data.description,
+        latitude: singleAddress?.latitude,
+        longitude: singleAddress?.longitude,
       };
 
       const tenancyDetails = {
@@ -246,7 +234,7 @@ const PropertyDetails = () => {
         termsAgreed: data.termsAgreed,
       };
 
-      // console.log("propertyData", propertyData);
+      console.log("propertyData", propertyData);
 
       const temporaryData = {
         step: "Property Details",
@@ -306,12 +294,14 @@ const PropertyDetails = () => {
     };
 
     fetchSingleAddress();
-  }, [selectedAddress, addresses]);
+
+    if (singleAddress) {
+      setValue("address2", singleAddress?.line_1);
+      setValue("town", singleAddress?.town_or_city);
+    }
+  }, [selectedAddress, addresses, singleAddress, setValue]);
 
   console.log("Fetched full address data:", singleAddress);
-  // if (singleAddress) {
-  //   setValue("address2", singleAddress?.line_2);
-  // }
 
   // for file upload
   useEffect(() => {
@@ -739,6 +729,3 @@ const PropertyDetails = () => {
 };
 
 export default PropertyDetails;
-
-// 44-7 handling image input manually
-// 46-8 Initializing Google Gemini
