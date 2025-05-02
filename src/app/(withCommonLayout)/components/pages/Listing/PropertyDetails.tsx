@@ -14,7 +14,7 @@ import { SearchIcon } from "@/assets/icons/icons";
 import SelectField from "../../UI/Form/SelectField";
 import CheckboxField from "../../UI/Form/CheckboxField";
 import { Calendar } from "@/components/ui/calendar";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { datePicker } from "@/helpers/datePicker";
 import {
   depositAmount,
@@ -35,9 +35,11 @@ import Loading from "../../UI/Loading/Loading";
 import { getAddresses, getSingleAddresses } from "@/services/APIServices";
 import { IOptionGroup, TAddresses, TAddressInfo } from "@/types";
 import { getAddressOptions } from "@/helpers/createOptions";
+import { useQueryClient } from "@tanstack/react-query";
 
 const PropertyDetails = () => {
-  const { mutate: handleCreateTemporaryListing, isPending } =
+  const queryClient = useQueryClient();
+  const { mutateAsync: handleCreateTemporaryListing, isPending } =
     useAddTemporaryListing();
 
   const {
@@ -48,7 +50,7 @@ const PropertyDetails = () => {
 
   console.log(
     "Property Details temporaryListingData",
-    temporaryListingData?.data?.data?.data?.propertyOption
+    temporaryListingData?.data?.data
   );
 
   const router = useRouter();
@@ -64,8 +66,11 @@ const PropertyDetails = () => {
 
   // for image uploading
   const [imageFiles, setImageFiles] = useState<File[] | null>(null);
-  const [error, setError] = useState<string>("");
+  // const [error, setError] = useState<string>("");
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+
+  // for smooth image error
+  const imageRef = useRef<HTMLDivElement>(null);
 
   // console.log("From Details", imageFiles);
 
@@ -93,7 +98,7 @@ const PropertyDetails = () => {
     defaultValues: {
       postcode: "SW1A 1AA",
       houseNumber: "4A",
-      // address: "12 Brushfield Street",
+      address: "12 Brushfield Street",
       address2: "",
       propertyType: "FLAT",
       bedrooms: 1,
@@ -153,7 +158,7 @@ const PropertyDetails = () => {
       // setIsLoading(false);
     } catch (error: any) {
       console.error(error);
-      setError(error.message);
+      // setError(error.message);
       // setIsLoading(false);
     }
   };
@@ -168,7 +173,7 @@ const PropertyDetails = () => {
       setAddressOptions(options as IOptionGroup[]);
     } catch (error: any) {
       console.error(error);
-      setError(error.message);
+      // setError(error.message);
     } finally {
       setIsAddressLoading(false);
     }
@@ -181,7 +186,17 @@ const PropertyDetails = () => {
   console.log("Selected Address", selectedAddress);
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    // console.log(data);
+    // today: 55/1/25 start
+    setIsSubmitting(true);
+
+    let isValid = true;
+    if (!imageFiles || imageFiles.length === 0) {
+      isValid = false;
+    }
+
+    if (!isValid) return; // Stop form submission
+    // today: 55/1/25 end
+
     if (imageFiles) {
       const propertyDetails = {
         postcode: data.postcode,
@@ -250,13 +265,26 @@ const PropertyDetails = () => {
         formData.append("propertyImages", image);
       }
 
-      handleCreateTemporaryListing(formData);
+      // handleCreateTemporaryListing(formData);
+      try {
+        // ✅ Wait for mutation to finish
+        await handleCreateTemporaryListing(formData);
 
-      setData(propertyData);
-      await setFiles(imageFiles);
+        // ✅ Invalidate cache to make sure next page fetches latest data
+        queryClient.invalidateQueries({ queryKey: ["GET_TEMPORARY_LISTING"] });
+
+        setData(propertyData);
+        await setFiles(imageFiles);
+
+        // ✅ Navigate to preview
+        router.push("preview-listing");
+      } catch (error) {
+        console.error("Error submitting listing:", error);
+      }
+
       // setFilesToStore(files);
     }
-    setIsSubmitting(true);
+    // setIsSubmitting(true);
     // router.push("preview-listing");
   };
 
@@ -303,19 +331,25 @@ const PropertyDetails = () => {
 
   console.log("Fetched full address data:", singleAddress);
 
-  // for file upload
   useEffect(() => {
-    if (isSubmitting) {
-      if (!imageFiles || imageFiles.length === 0) {
-        setError("Please select an image");
-      } else {
-        setError("");
-        console.log("Form submitted successfully with files:", imageFiles);
-      }
-      setIsSubmitting(false);
-      router.push("/listing/preview-listing"); // better to use absolute path
+    if (isSubmitting && (!imageFiles || imageFiles.length === 0)) {
+      imageRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
     }
-  }, [isSubmitting, imageFiles, router]);
+  }, [isSubmitting, imageFiles]);
+
+  // for file upload
+  // useEffect(() => {
+  //   if (isSubmitting) {
+  //     if (!imageFiles || imageFiles.length === 0) {
+  //       setError("Please select an image");
+  //     } else {
+  //       setError("");
+  //       console.log("Form submitted successfully with files:", imageFiles);
+  //     }
+  //     setIsSubmitting(false);
+  //     router.push("/listing/preview-listing"); // better to use absolute path
+  //   }
+  // }, [isSubmitting, imageFiles, router]);
 
   if (temporaryListingLoading || isPending) {
     return <Loading />;
@@ -646,7 +680,10 @@ const PropertyDetails = () => {
           <h2 className="text-[24px] font-semibold text-colorTextSecondary leading-[32px]">
             Photos & Videos
           </h2>
-          <div className="p-11 rounded-xl shadow-[0px_1px_4px_0px_rgba(16,24,40,0.10),0px_1px_4px_0px_rgba(16,24,40,0.06)]">
+          <div
+            className="p-11 rounded-xl shadow-[0px_1px_4px_0px_rgba(16,24,40,0.10),0px_1px_4px_0px_rgba(16,24,40,0.06)]"
+            ref={imageRef}
+          >
             <ImageUploader
               files={imageFiles}
               setFiles={setImageFiles}
@@ -660,7 +697,12 @@ const PropertyDetails = () => {
                 your photos
               </p>
             </ImageUploader>
-            {error && <p className="text-red-500 mt-2">{error}</p>}
+            {/* {error && <p className="text-red-500 mt-2">{error}</p>} */}
+            {isSubmitting && (!imageFiles || imageFiles.length === 0) && (
+              <p className="text-red-500 text-sm">
+                Please upload at least one image.
+              </p>
+            )}
             <div className="mt-6">
               <p className="text-colorTextSecondary font-medium leading-[24px]">
                 Optional: Add YouTube share URL{" "}

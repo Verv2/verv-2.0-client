@@ -21,6 +21,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import ItemChecked from "../../UI/ItemChecked/ItemChecked";
 import { TListingData } from "@/types";
 import "./SingleListing.css";
+import GoogleMaps from "../../UI/Map/GoogleMaps";
 
 const SingleListing = ({ listingData }: { listingData: TListingData }) => {
   console.log(listingData);
@@ -435,10 +436,23 @@ const SingleListing = ({ listingData }: { listingData: TListingData }) => {
 
           {/* location */}
           <div className="mt-10">
-            <h2 className="text-xl font-semibold">
-              This is a location component. Have to work with google location
-              based on the data from the backend
-            </h2>
+            <div>
+              <h3 className="text-2xl text-colorTextPrimary font-semibold leading-[120%] mb-6">
+                Location
+              </h3>
+              <div className="flex items-center gap-2 mb-4">
+                <LocationIcon width={18} height={20} />
+                <h3 className="text-colorTextSecondary text-lg font-semibold">
+                  {listingData.address}
+                </h3>
+              </div>
+            </div>
+            <GoogleMaps
+              locationMarker={{
+                lat: listingData?.latitude as number,
+                lng: listingData?.longitude as number,
+              }}
+            />
           </div>
         </div>
 

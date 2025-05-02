@@ -48,8 +48,11 @@ export const createListing = async (
 };
 
 export const getTemporaryListing = async () => {
+  console.log("Temporary Listing Data from ListingServices");
   try {
     const { data } = await axiosInstance.get("listings/get-temporary-listing");
+
+    console.log("Temporary Listing Data from ListingServices", data);
 
     return data;
   } catch (error: any) {

@@ -41,6 +41,9 @@ export const useGetTemporaryListing = () => {
   return useQuery({
     queryKey: ["GET_TEMPORARY_LISTING"],
     queryFn: async () => await getTemporaryListing(),
+    refetchOnMount: true, // 🚨 refetch every time component mounts
+    refetchOnWindowFocus: false, // optional: disable refetching on focus
+    staleTime: 0, // optional: mark data as always stale
   });
 };
 
