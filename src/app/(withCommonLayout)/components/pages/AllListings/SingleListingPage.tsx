@@ -24,8 +24,11 @@ import { Button } from "@/components/ui/button";
 import ItemChecked from "../../UI/ItemChecked/ItemChecked";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import GoogleMaps from "../../UI/Map/GoogleMaps";
+import { useRouter } from "next/navigation";
 
 const SingleListingPage = ({ listingId }: { listingId: string }) => {
+  const router = useRouter();
+
   const {
     data: data,
     isLoading: dataLoading,
@@ -178,7 +181,10 @@ const SingleListingPage = ({ listingId }: { listingId: string }) => {
               <h3 className="text-lg text-colorTextSecondary font-semibold">
                 Proceed to Rent
               </h3>
-              <Button className="py-[17px] px-[126px] rounded-[32px] bg-colorButton">
+              <Button
+                className="py-[17px] px-[126px] rounded-[32px] bg-colorButton"
+                onClick={() => router.push(`/rent/${listingId}`)}
+              >
                 Rent Now
               </Button>
             </div>
