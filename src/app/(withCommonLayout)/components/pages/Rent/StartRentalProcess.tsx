@@ -2,6 +2,8 @@
 import { useGetSingleListing } from "@/hooks/listing.hook";
 import Loading from "../../UI/Loading/Loading";
 import { ClipArrowDown, ClipArrowUp } from "@/assets/icons/icons";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 const StartRentalProcess = ({ listingId }: { listingId: string }) => {
   const {
@@ -35,7 +37,7 @@ const StartRentalProcess = ({ listingId }: { listingId: string }) => {
 
         <section className="m-auto w-full lg:w-[1094px] mt-14">
           <div>
-            <div className="flex flex-col items-start lg:flex-row gap-10 lg:gap-[70px] relative">
+            <div className="flex flex-col items-start lg:flex-row gap-10 lg:gap-[70px] lg:relative">
               {/* 1 */}
               <div className="m-auto flex flex-col items-center gap-6 w-[318px] my-0">
                 <div className="w-16 h-16 bg-colorTextPrimary text-white flex items-center justify-center text-[30.72px] font-bold leading-[120%] rounded-[16px] rounded-bl-none">
@@ -92,6 +94,33 @@ const StartRentalProcess = ({ listingId }: { listingId: string }) => {
                   </p>
                 </div>
               </div>
+            </div>
+            {/* divider */}
+            <div className="w-[345px] lg:w-[800px] h-[1.5px] bg-colorTextPrimary opacity-10 my-10"></div>
+
+            {/* rental guide  */}
+            <div className="w-[345px] lg:w-[750px] m-auto flex flex-col items-center gap-8 text-center">
+              <h2 className="text-[32px] font-semibold leading-[120%] text-colorTextPrimary">
+                Our Rental Guide
+              </h2>
+              <p className="text-lg leading-[150%] text-colorTextPrimary">
+                Secure your chosen property by making a holding deposit. This
+                step ensures the home is reserved for you while we complete your
+                reference checks. Plus, it simplifies the move-in process, as
+                the deposit is applied towards your first month&apos;s rent.
+              </p>
+              <p className="text-lg font-medium leading-[150%] text-colorTextPrimary w-[350px]">
+                For more information on our holding deposit policy, click{" "}
+                <Link
+                  href=""
+                  className="font-semibold text-colorButton underline"
+                >
+                  here
+                </Link>
+              </p>
+              <Button className="w-[180px] h-[56px] px-2 py-4 rounded-[32px] bg-colorButton text-lg font-semibold">
+                Continue
+              </Button>
             </div>
           </div>
         </section>
