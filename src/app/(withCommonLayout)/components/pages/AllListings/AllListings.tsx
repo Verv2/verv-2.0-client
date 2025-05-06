@@ -6,10 +6,21 @@ import Loading from "../../UI/Loading/Loading";
 import { TGetListing } from "@/types";
 import { useSearchParams } from "next/navigation";
 import { searchParamsToObject } from "@/helpers/searchParamsToObject";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import GoogleMaps from "../../UI/Map/GoogleMaps";
+import { useState } from "react";
 
 const AllListings = () => {
   const searchParams = useSearchParams();
   const paramsObject = searchParamsToObject(searchParams);
+  const [open, setOpen] = useState(false);
 
   const {
     data: listingData,
@@ -170,6 +181,23 @@ const AllListings = () => {
         <div className="inline-flex h-[160px] p-[52px_352px] justify-center items-center flex-shrink-0">
           <div className="flex w-[1216px] justify-between items-center">
             {/* view properties on map */}
+            <Dialog open={open} onOpenChange={setOpen}>
+              <DialogTrigger>Open</DialogTrigger>
+              <DialogContent className="max-w-[1400px] h-[80vh]">
+                <DialogHeader>
+                  <DialogTitle>Properties on map</DialogTitle>
+                  <DialogDescription>
+                    {open && (
+                      <GoogleMaps
+                        locationMarkers={listingData}
+                        mapClassName="max-w-[1400px] h-[70vh]"
+                        mapZoom={2}
+                      />
+                    )}
+                  </DialogDescription>
+                </DialogHeader>
+              </DialogContent>
+            </Dialog>
             <button className="flex w-[270px] h-[48px] p-[8px] px-[16px] justify-center items-center gap-[8px] flex-shrink-0 rounded-[32px] border-2 border-[#50B533] bg-white">
               <span className="flex w-[24px] h-[24px] p-[4px] px-[2px] justify-center items-center flex-shrink-0">
                 <svg

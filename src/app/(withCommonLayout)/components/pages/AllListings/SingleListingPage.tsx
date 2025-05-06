@@ -41,6 +41,10 @@ const SingleListingPage = ({ listingId }: { listingId: string }) => {
 
   console.log("Single Listing", data);
 
+  const arrOfData = [data];
+
+  console.log("Single Listing array", arrOfData);
+
   return (
     dataSuccess && (
       <div>
@@ -459,10 +463,9 @@ const SingleListingPage = ({ listingId }: { listingId: string }) => {
                 </div>
               </div>
               <GoogleMaps
-                locationMarker={{
-                  lat: data?.latitude as number,
-                  lng: data?.longitude as number,
-                }}
+                locationMarkers={arrOfData}
+                mapZoom={15}
+                mapClassName="w-[800px] h-[275px]"
               />
             </div>
           </div>

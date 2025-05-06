@@ -1,19 +1,21 @@
 "use client";
 import envConfig from "@/config/envConfig";
+import { TGetListing } from "@/types";
 import { Loader } from "@googlemaps/js-api-loader";
 import { useEffect, useRef } from "react";
 
-interface IGoogleMapsProps {
-  locationMarker: {
-    lat?: number;
-    lng?: number;
-  };
-}
-
-const GoogleMaps = ({ locationMarker }: IGoogleMapsProps) => {
+const GoogleMaps = ({
+  locationMarkers,
+  mapClassName,
+  mapZoom,
+}: {
+  locationMarkers: TGetListing[];
+  mapClassName: string;
+  mapZoom: number;
+}) => {
   const mapRef = useRef<HTMLDivElement>(null);
 
-  console.log("Google Maps component locationMarker", locationMarker);
+  console.log("Google Maps component locationMarker", locationMarkers);
 
   useEffect(() => {
     console.log("Google Maps component mounted");
@@ -27,14 +29,20 @@ const GoogleMaps = ({ locationMarker }: IGoogleMapsProps) => {
 
       const { Map } = await loader.importLibrary("maps");
 
-      //   const location = { lat: -34.397, lng: 150.644 };
-      const location = {
-        lat: locationMarker?.lat ?? 0,
-        lng: locationMarker?.lng ?? 0,
-      };
+      // Default UK center
+      const defaultLocation = { lat: 54.8, lng: -4.6 };
+
+      const center =
+        locationMarkers.length === 1
+          ? {
+              lat: locationMarkers[0]?.latitude ?? defaultLocation.lat,
+              lng: locationMarkers[0]?.longitude ?? defaultLocation.lng,
+            }
+          : defaultLocation;
+
       const options: google.maps.MapOptions = {
-        center: location,
-        zoom: 15,
+        center: center,
+        zoom: mapZoom,
         mapId: "map",
         streetViewControl: false,
         mapTypeControl: false,
@@ -43,15 +51,25 @@ const GoogleMaps = ({ locationMarker }: IGoogleMapsProps) => {
 
       const map = new Map(mapRef.current as HTMLDivElement, options);
 
+      // re-center in case it shifts
+      google.maps.event.addListenerOnce(map, "idle", () => {
+        google.maps.event.trigger(map, "resize");
+        map.setCenter(center);
+      });
+
       const { AdvancedMarkerElement } = (await loader.importLibrary(
         "marker"
       )) as google.maps.MarkerLibrary;
 
-      //   use an array of location property data to map through and create markers
-      new AdvancedMarkerElement({
-        position: location,
-        map: map,
-        title: `Property ${locationMarker?.lat}, ${locationMarker?.lng}`,
+      // Add all markers to the map
+      locationMarkers.forEach((marker) => {
+        if (marker.latitude && marker.longitude) {
+          new AdvancedMarkerElement({
+            position: { lat: marker.latitude, lng: marker.longitude },
+            map,
+            title: `Property ${marker.address} ${marker.latitude}, ${marker.longitude}`,
+          });
+        }
       });
     };
 
@@ -62,11 +80,11 @@ const GoogleMaps = ({ locationMarker }: IGoogleMapsProps) => {
       .catch((error) => {
         console.error("Error loading Google Maps:", error);
       });
-  }, []);
+  }, [locationMarkers, mapZoom]);
 
   return (
     <>
-      <div ref={mapRef} className="w-[800px] h-[275px]" />
+      <div ref={mapRef} className={mapClassName} />
     </>
   );
 };

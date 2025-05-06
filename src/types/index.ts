@@ -282,6 +282,10 @@ export type TGetListing = {
   furnishingOptions: "FURNISHED" | "UNFURNISHED" | string; // You can refine this too
   town: string;
   description: string;
+
+  latitude?: number;
+  longitude?: number;
+
   propertyImages: string[];
   remoteVideoViewing: boolean;
   viewingDescription: string | null;
