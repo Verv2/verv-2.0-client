@@ -19,10 +19,10 @@ const InitiateRent = ({ listingId }: { listingId: string }) => {
   }
   return (
     dataSuccess && (
-      <section className="w-[1216px] m-auto mt-14">
+      <section className="w-[390] lg:w-[1216px] px-5 lg:px-0 m-auto mt-14">
         <InitiateRentTab isInitiate={true} />
         <div className="mt-10 space-y-4">
-          <h2 className="text-[32px] font-semibold leading-[120%] text-colorTextPrimary">
+          <h2 className="text-[28px] lg:text-[32px] text-center lg:text-left font-semibold leading-[120%] text-colorTextPrimary">
             Review and commit to rental agreement
           </h2>
           <p className="text-lg leading-[150%] text-colorTextSecondary">
@@ -39,8 +39,8 @@ const InitiateRent = ({ listingId }: { listingId: string }) => {
           <h3 className="text-2xl font-semibold leading-[120%] text-[#7D8A9B]">
             Property Details
           </h3>
-          <div className="flex flex-col justify-center items-start gap-6 self-stretch p-6 mt-5 rounded-[16px] bg-[#FCFCFC] shadow-[0px_1px_4px_0px_rgba(16,24,40,0.10),0px_1px_4px_0px_rgba(16,24,40,0.06)]">
-            <h3 className="text-2xl font-semibold leading-[120%] text-colorTextPrimary">
+          <div className="flex flex-col justify-center items-start gap-5 lg:gap-6 self-stretch p-[18.5px] lg:p-6 mt-5 rounded-[16px] bg-[#FCFCFC] shadow-[0px_1px_4px_0px_rgba(16,24,40,0.10),0px_1px_4px_0px_rgba(16,24,40,0.06)]">
+            <h3 className="text-xl lg:text-2xl font-semibold leading-[120%] text-colorTextPrimary">
               {data.bedrooms} bed, {data.bathrooms} bath house
             </h3>
             <SingleImageCarousel images={data.propertyImages} />

@@ -19,7 +19,7 @@ const InitiateRentTab = ({
   isComplete?: boolean;
 }) => {
   return (
-    <div className="flex w-full m-auto">
+    <div className="hidden lg:flex w-full m-auto">
       {/* Initiate Rent Now */}
       <div className="relative w-[220px] h-[58px] flex justify-center items-center">
         <p
