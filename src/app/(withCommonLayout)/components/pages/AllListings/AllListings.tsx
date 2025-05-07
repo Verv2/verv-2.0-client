@@ -182,7 +182,28 @@ const AllListings = () => {
           <div className="flex w-[1216px] justify-between items-center">
             {/* view properties on map */}
             <Dialog open={open} onOpenChange={setOpen}>
-              <DialogTrigger>Open</DialogTrigger>
+              <DialogTrigger>
+                <button className="flex w-[270px] h-[48px] p-[8px] px-[16px] justify-center items-center gap-[8px] flex-shrink-0 rounded-[32px] border-2 border-[#50B533] bg-white">
+                  <span className="flex w-[24px] h-[24px] p-[4px] px-[2px] justify-center items-center flex-shrink-0">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="22"
+                      height="18"
+                      viewBox="0 0 22 18"
+                      fill="none"
+                    >
+                      <path
+                        d="M7 1.02478C5.13272 1.23379 2.85997 2.78189 1.72215 3.64222C1.25538 3.99516 1 4.55187 1 5.13706V14.8065C1 15.6599 2.0279 16.1548 2.73627 15.6788C3.94575 14.866 5.58869 13.9431 7 13.7851M7 1.02478C10.3183 0.653351 11.6817 4.5863 15 4.21487M7 1.02478V13.7851M15 4.21487C16.4113 4.0569 18.0542 3.13397 19.2637 2.32119C19.9721 1.84517 21 2.34007 21 3.19353V12.8629C21 13.4481 20.7446 14.0048 20.2778 14.3578C19.14 15.2181 16.8673 16.7662 15 16.9752M15 4.21487V16.9752M7 13.7851C10.3183 13.4137 11.6817 17.3466 15 16.9752"
+                        stroke="#50B533"
+                        strokeWidth="1.5"
+                      />
+                    </svg>
+                  </span>
+                  <span className="text-[#314660] font-inter text-[14px] font-semibold leading-normal">
+                    View Properties on Map
+                  </span>
+                </button>
+              </DialogTrigger>
               <DialogContent className="max-w-[1400px] h-[80vh]">
                 <DialogHeader>
                   <DialogTitle>Properties on map</DialogTitle>
@@ -198,26 +219,7 @@ const AllListings = () => {
                 </DialogHeader>
               </DialogContent>
             </Dialog>
-            <button className="flex w-[270px] h-[48px] p-[8px] px-[16px] justify-center items-center gap-[8px] flex-shrink-0 rounded-[32px] border-2 border-[#50B533] bg-white">
-              <span className="flex w-[24px] h-[24px] p-[4px] px-[2px] justify-center items-center flex-shrink-0">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="22"
-                  height="18"
-                  viewBox="0 0 22 18"
-                  fill="none"
-                >
-                  <path
-                    d="M7 1.02478C5.13272 1.23379 2.85997 2.78189 1.72215 3.64222C1.25538 3.99516 1 4.55187 1 5.13706V14.8065C1 15.6599 2.0279 16.1548 2.73627 15.6788C3.94575 14.866 5.58869 13.9431 7 13.7851M7 1.02478C10.3183 0.653351 11.6817 4.5863 15 4.21487M7 1.02478V13.7851M15 4.21487C16.4113 4.0569 18.0542 3.13397 19.2637 2.32119C19.9721 1.84517 21 2.34007 21 3.19353V12.8629C21 13.4481 20.7446 14.0048 20.2778 14.3578C19.14 15.2181 16.8673 16.7662 15 16.9752M15 4.21487V16.9752M7 13.7851C10.3183 13.4137 11.6817 17.3466 15 16.9752"
-                    stroke="#50B533"
-                    strokeWidth="1.5"
-                  />
-                </svg>
-              </span>
-              <span className="text-[#314660] font-inter text-[14px] font-semibold leading-normal">
-                View Properties on Map
-              </span>
-            </button>
+
             {/* email alert */}
             <button className="flex w-[220px] h-[48px] p-[8px] px-[16px] justify-center items-center gap-[8px] flex-shrink-0 rounded-[32px] border-2 border-[#50B533] bg-[#F6FFF4]">
               <span className="flex w-[24px] h-[24px] p-[4px] px-[2px] justify-center items-center flex-shrink-0">

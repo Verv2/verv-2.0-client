@@ -4,8 +4,10 @@ import Loading from "../../UI/Loading/Loading";
 import { ClipArrowDown, ClipArrowUp } from "@/assets/icons/icons";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 
 const StartRentalProcess = ({ listingId }: { listingId: string }) => {
+  const router = useRouter();
   const {
     data: data,
     isLoading: dataLoading,
@@ -118,7 +120,10 @@ const StartRentalProcess = ({ listingId }: { listingId: string }) => {
                   here
                 </Link>
               </p>
-              <Button className="w-[180px] h-[56px] px-2 py-4 rounded-[32px] bg-colorButton text-lg font-semibold">
+              <Button
+                className="w-[180px] h-[56px] px-2 py-4 rounded-[32px] bg-colorButton text-lg font-semibold"
+                onClick={() => router.push(`/rent/initiate/${listingId}`)}
+              >
                 Continue
               </Button>
             </div>
