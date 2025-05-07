@@ -4,6 +4,7 @@ import { useGetSingleListing } from "@/hooks/listing.hook";
 import InitiateRentTab from "../../../Shared/Tabs/InitiateRentTab";
 import Loading from "../../../UI/Loading/Loading";
 import SingleImageCarousel from "./SingleImageCarousel";
+import PaymentDetails from "./PaymentDetails";
 
 const InitiateRent = ({ listingId }: { listingId: string }) => {
   const {
@@ -46,6 +47,9 @@ const InitiateRent = ({ listingId }: { listingId: string }) => {
             <SingleImageCarousel images={data.propertyImages} />
           </div>
         </div>
+
+        {/* payment details */}
+        <PaymentDetails />
       </section>
     )
   );
