@@ -45,7 +45,7 @@ const SingleImageCarousel = ({ images }: { images: string[] }) => {
 
       <Button
         className={cn(
-          "w-10 h-10 rounded-full absolute top-1/2 left-4 -translate-y-1/2 z-10 hover:bg-gray-400",
+          "w-10 h-10 rounded-full absolute top-1/2 left-4 -translate-y-1/2 z-10 hover:bg-gray-400 hidden lg:flex",
           current === 0 ? "bg-white" : "bg-colorButton"
         )}
         onClick={() => api?.scrollPrev()}
@@ -54,7 +54,7 @@ const SingleImageCarousel = ({ images }: { images: string[] }) => {
       </Button>
       <Button
         className={cn(
-          "w-10 h-10 rounded-full absolute top-1/2 right-4 -translate-y-1/2 z-10 hover:bg-gray-400",
+          "w-10 h-10 rounded-full absolute top-1/2 right-4 -translate-y-1/2 z-10 hover:bg-gray-400 hidden lg:flex",
           current === totalSlides - 1 ? "bg-white" : "bg-colorButton"
         )}
         onClick={() => api?.scrollNext()}

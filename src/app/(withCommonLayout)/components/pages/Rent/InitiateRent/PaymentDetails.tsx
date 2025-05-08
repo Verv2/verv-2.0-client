@@ -6,6 +6,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import TenantNamesForm from "./TenantNamesForm";
 
 const PaymentDetails = () => {
   return (
@@ -18,7 +19,7 @@ const PaymentDetails = () => {
           <Table className="w-full">
             <TableHeader className="bg-[#CED3D9]">
               <TableRow>
-                <TableHead className="text-xl font-semibold leading-[120%] text-colorTextPrimary w-[600px]">
+                <TableHead className="text-xl font-semibold leading-[120%] text-colorTextPrimary lg:w-[600px]">
                   Item
                 </TableHead>
                 <TableHead className="text-xl font-semibold leading-[120%] text-colorTextPrimary">
@@ -72,7 +73,23 @@ const PaymentDetails = () => {
             </TableBody>
           </Table>
         </div>
+        <div className="p-8 justify-center items-center rounded-[16px] border border-solid border-[#B4DFA7] bg-[#F6FFF4]">
+          <p className="text-lg leading-[150%] text-colorTextPrimary">
+            At present, the total rent and deposit due will be £1076.92. The
+            holding deposit of £115.00 will be put towards this, so{" "}
+            <span className="font-bold">
+              £962.92 will be due once the contract is signed.
+            </span>
+          </p>
+          <p className="text-lg leading-[150%] text-colorTextPrimary mt-4">
+            Be aware that the landlord may change these amounts or request
+            additional rent in advance before issuing the contract.
+          </p>
+        </div>
       </div>
+
+      {/* move in date and tenants name */}
+      <TenantNamesForm />
     </div>
   );
 };
