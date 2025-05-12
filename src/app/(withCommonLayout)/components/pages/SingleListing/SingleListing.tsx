@@ -21,7 +21,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import ItemChecked from "../../UI/ItemChecked/ItemChecked";
 import { TListingData } from "@/types";
 import "./SingleListing.css";
-import GoogleMaps from "../../UI/Map/GoogleMaps";
+// import GoogleMaps from "../../UI/Map/GoogleMaps";
 
 const SingleListing = ({ listingData }: { listingData: TListingData }) => {
   console.log(listingData);
@@ -447,12 +447,12 @@ const SingleListing = ({ listingData }: { listingData: TListingData }) => {
                 </h3>
               </div>
             </div>
-            <GoogleMaps
+            {/* <GoogleMaps
               locationMarker={{
                 lat: listingData?.latitude as number,
                 lng: listingData?.longitude as number,
               }}
-            />
+            /> */}
           </div>
         </div>
 

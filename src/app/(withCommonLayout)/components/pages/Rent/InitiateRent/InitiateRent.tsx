@@ -5,6 +5,7 @@ import InitiateRentTab from "../../../Shared/Tabs/InitiateRentTab";
 import Loading from "../../../UI/Loading/Loading";
 import SingleImageCarousel from "./SingleImageCarousel";
 import PaymentDetails from "./PaymentDetails";
+import TenantNamesForm from "./TenantNamesForm";
 
 const InitiateRent = ({ listingId }: { listingId: string }) => {
   const {
@@ -50,6 +51,7 @@ const InitiateRent = ({ listingId }: { listingId: string }) => {
 
         {/* payment details */}
         <PaymentDetails />
+        <TenantNamesForm listingId={listingId} />
       </section>
     )
   );

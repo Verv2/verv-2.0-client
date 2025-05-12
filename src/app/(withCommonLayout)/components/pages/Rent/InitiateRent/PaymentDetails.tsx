@@ -6,7 +6,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import TenantNamesForm from "./TenantNamesForm";
 
 const PaymentDetails = () => {
   return (
@@ -89,7 +88,7 @@ const PaymentDetails = () => {
       </div>
 
       {/* move in date and tenants name */}
-      <TenantNamesForm />
+      {/* <TenantNamesForm /> */}
     </div>
   );
 };

@@ -348,3 +348,11 @@ export type TAddressInfo = {
   country: string;
   residential: boolean;
 };
+
+export type TTenantsList = {
+  fullName: string;
+  phoneNumber: string;
+  email: string;
+  moveInDate: string;
+  description?: string;
+};

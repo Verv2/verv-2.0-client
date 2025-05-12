@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import DatePicker from "../../../UI/Calendar/DatePicker";
@@ -20,10 +21,18 @@ import { Plus, X } from "lucide-react";
 import TextEditor from "../../../UI/TextEditor/TextEditor";
 import { CircleFull } from "@/assets/icons/icons";
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { useCreateRentNowTenantInfo } from "@/hooks/tenant.hook";
+import Loading from "../../../UI/Loading/Loading";
 
-const TenantNamesForm = () => {
+const TenantNamesForm = ({ listingId }: { listingId: string }) => {
   const [date, setDate] = useState<Date | undefined>();
+  const [dateError, setDateError] = useState(false);
+
+  const { mutateAsync: handleCreateRentNowTenantInfo, isPending } =
+    useCreateRentNowTenantInfo();
+
+  const dateRef = useRef<HTMLDivElement>(null);
   const {
     register,
     control,
@@ -33,19 +42,46 @@ const TenantNamesForm = () => {
     resolver: zodResolver(tenantNamesFormSchema),
     defaultValues: {
       description: "",
-      friends: [{ name: "", email: "", phone: "" }],
+      tenants: [{ fullName: "", email: "", phoneNumber: "" }],
     },
   });
 
   const { fields, append, remove } = useFieldArray({
     control,
-    name: "friends",
+    name: "tenants",
   });
 
-  const onSubmit = (data: TTenantNamesFormValues) => {
-    console.log("Submitted Data:", data);
-    console.log("Selected Date", date);
+  const onSubmit = async (data: TTenantNamesFormValues) => {
+    if (!date) {
+      setDateError(true);
+      dateRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+      return;
+    }
+    setDateError(false);
+    const { tenants } = data;
+    const { description } = data;
+    const moveInDate = date?.toString();
+
+    const updatedTenants = tenants.map((tenant: any) => ({
+      ...tenant,
+      description,
+      moveInDate,
+      propertyId: listingId,
+    }));
+
+    try {
+      // ✅ Wait for mutation to finish
+      await handleCreateRentNowTenantInfo({ data: updatedTenants });
+    } catch (error) {
+      console.error("Error submitting tenants:", error);
+    }
+
+    console.log("Submitted Data:", { data: updatedTenants });
   };
+
+  if (isPending) {
+    return <Loading />;
+  }
 
   return (
     <>
@@ -53,8 +89,16 @@ const TenantNamesForm = () => {
         <h3 className="text-2xl font-semibold leading-[120%] text-[#7D8A9B] mt-10 mb-5">
           Move-in Date
         </h3>
-        <div className="p-6 rounded-[16px] bg-[#FCFCFC] shadow-[0px_1px_4px_0px_rgba(16,24,40,0.10),_0px_1px_4px_0px_rgba(16,24,40,0.06)]">
+        <div
+          className="p-6 rounded-[16px] bg-[#FCFCFC] shadow-[0px_1px_4px_0px_rgba(16,24,40,0.10),_0px_1px_4px_0px_rgba(16,24,40,0.06)]"
+          ref={dateRef}
+        >
           <DatePicker date={date} setDate={setDate} />
+          {dateError && (
+            <p className="text-sm text-red-500 mt-2">
+              Please select a move-in date.
+            </p>
+          )}
         </div>
         <h3 className="text-2xl font-semibold leading-[120%] text-[#7D8A9B] mt-10 mb-5">
           Name of the Tenants
@@ -93,33 +137,33 @@ const TenantNamesForm = () => {
                     <TableCell>
                       <Input
                         placeholder="Enter Full Name"
-                        {...register(`friends.${index}.name`)}
+                        {...register(`tenants.${index}.fullName`)}
                       />
-                      {errors.friends?.[index]?.name && (
+                      {errors.tenants?.[index]?.fullName && (
                         <p className="text-red-500 text-sm">
-                          {errors.friends[index].name?.message}
+                          {errors.tenants[index].fullName?.message}
                         </p>
                       )}
                     </TableCell>
                     <TableCell className="font-semibold">
                       <Input
                         placeholder="Email"
-                        {...register(`friends.${index}.email`)}
+                        {...register(`tenants.${index}.email`)}
                       />
-                      {errors.friends?.[index]?.email && (
+                      {errors.tenants?.[index]?.email && (
                         <p className="text-red-500 text-sm">
-                          {errors.friends[index].email?.message}
+                          {errors.tenants[index].email?.message}
                         </p>
                       )}
                     </TableCell>
                     <TableCell className="font-semibold">
                       <Input
                         placeholder="Enter Phone Number"
-                        {...register(`friends.${index}.phone`)}
+                        {...register(`tenants.${index}.phoneNumber`)}
                       />
-                      {errors.friends?.[index]?.phone && (
+                      {errors.tenants?.[index]?.phoneNumber && (
                         <p className="text-red-500 text-sm">
-                          {errors.friends[index].phone?.message}
+                          {errors.tenants[index].phoneNumber?.message}
                         </p>
                       )}
                     </TableCell>
@@ -139,7 +183,9 @@ const TenantNamesForm = () => {
 
             <button
               type="button"
-              onClick={() => append({ name: "", email: "", phone: "" })}
+              onClick={() =>
+                append({ fullName: "", email: "", phoneNumber: "" })
+              }
               className="flex items-center gap-2 text-lg font-medium text-colorTextPrimary hover:text-colorTextSecondary ml-4 mb-[28px]"
             >
               <Plus width={20} height={20} />
