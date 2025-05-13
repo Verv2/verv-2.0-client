@@ -20,9 +20,9 @@ const Tenants = () => {
             </div>
             <div className="w-[724px]">
               <p className="text-center text-[18px] font-normal leading-[28px] text-[#233244]">
-                Verve lets you deal directly with private landlords, with no
-                admin fees. We’ve put the whole process online to save you time,
-                effort and frustration!
+                Verv allows you to rent directly from private landlords, with no
+                admin fees. We&apos; ve streamlined the entire process online to
+                save you time, effort, and hassle!
               </p>
             </div>
           </div>
@@ -102,9 +102,9 @@ const Tenants = () => {
           <div className="flex justify-start items-center gap-[60px]">
             <div className="flex items-end">
               <PropertyDetailsCard
-                header_text="Save Time by Filtering out Unsuitable Properties"
-                middle_text="You'll only see properties that are available now, with no fees, appropriate pictures, and all the details up front. We have thousands of properties all over the UK."
-                lower_text="As soon as a property isn't available, we take it offline. If you've already enquired about a property that gets taken, we'll email you right away. If you only want to see properties suitable for pets, DSS, students or families, then just tick a box and that's all you'll see."
+                header_text="Simply click to book a viewing or contact the landlord directly."
+                middle_text="Looking for a new home should be simple. With Verv, you can easily book a viewing or message the landlord directly – no middleman is needed."
+                lower_text="If you’ve found a property you like, click ‘Book Viewing’ to send a message straight to the landlord. Ask questions, get more details, and schedule a viewing at a time that works for you. Verv ensures your personal information remains private while communicating directly with the landlord."
               />
 
               <div className="relative">
@@ -173,9 +173,9 @@ const Tenants = () => {
                 </div>
               </div>
               <PropertyDetailsCard
-                header_text="Save Time by Filtering out Unsuitable Properties"
-                middle_text="You'll only see properties that are available now, with no fees, appropriate pictures, and all the details up front. We have thousands of properties all over the UK."
-                lower_text="As soon as a property isn't available, we take it offline. If you've already enquired about a property that gets taken, we'll email you right away. If you only want to see properties suitable for pets, DSS, students or families, then just tick a box and that's all you'll see."
+                header_text="View the Property Directly with the Landlord"
+                middle_text="When it’s time to view the property, you’ll meet the landlord, take a tour, and ask any questions without pressure from a letting agent. This is your chance to learn about the home from someone who knows it best. If you have more questions afterwards, just message the landlord directly."
+                lower_text=""
               />
             </div>
           </div>
@@ -184,9 +184,9 @@ const Tenants = () => {
           <div className="flex justify-start items-center gap-[60px]">
             <div className="flex items-end">
               <PropertyDetailsCard
-                header_text="Save Time by Filtering out Unsuitable Properties"
-                middle_text="You'll only see properties that are available now, with no fees, appropriate pictures, and all the details up front. We have thousands of properties all over the UK."
-                lower_text="As soon as a property isn't available, we take it offline. If you've already enquired about a property that gets taken, we'll email you right away. If you only want to see properties suitable for pets, DSS, students or families, then just tick a box and that's all you'll see."
+                header_text="Click 'Rent Now' to secure the property."
+                middle_text="If you’re happy with the viewing, simply click ‘Rent Now’ to secure the property. You’ll pay a refundable holding deposit equal to one week’s rent, paid directly to us – not the landlord. If everything goes ahead, the deposit will be credited toward your first month's rent."
+                lower_text="With clear and simple terms in place, your payment is fully protected, allowing you to move forward stress-free. Payments can be made online by card anytime, giving you the flexibility you need—no cash or office hours are required."
               />
 
               <div className="relative">
@@ -248,9 +248,9 @@ const Tenants = () => {
                 </div>
               </div>
               <PropertyDetailsCard
-                header_text="Save Time by Filtering out Unsuitable Properties"
-                middle_text="You'll only see properties that are available now, with no fees, appropriate pictures, and all the details up front. We have thousands of properties all over the UK."
-                lower_text="As soon as a property isn't available, we take it offline. If you've already enquired about a property that gets taken, we'll email you right away. If you only want to see properties suitable for pets, DSS, students or families, then just tick a box and that's all you'll see."
+                header_text="Referencing, Contracts & Deposits: All Managed Online"
+                middle_text="If referencing is needed, we’ll guide you through it with ease and keep you updated at each step via our online dashboard. Tenant referencing is entirely free of charge."
+                lower_text="Once that’s sorted, you can pay your tenancy deposit online. We'll register your deposit immediately and send the tenancy agreement for you to sign digitally—no need to meet up in person or juggle schedules with your flatmates!"
               />
             </div>
           </div>
@@ -259,9 +259,9 @@ const Tenants = () => {
           <div className="flex justify-start items-center gap-[60px]">
             <div className="flex items-end">
               <PropertyDetailsCard
-                header_text="Save Time by Filtering out Unsuitable Properties"
-                middle_text="You'll only see properties that are available now, with no fees, appropriate pictures, and all the details up front. We have thousands of properties all over the UK."
-                lower_text="As soon as a property isn't available, we take it offline. If you've already enquired about a property that gets taken, we'll email you right away. If you only want to see properties suitable for pets, DSS, students or families, then just tick a box and that's all you'll see."
+                header_text="Collect the keys and move in!"
+                middle_text="Your holding deposit will automatically go toward your first month’s rent. After covering move-in costs and signing the tenancy agreement, you’ll have a secure tenancy with your landlord. Everything you need – from your contract to references – is accessible in your Verv dashboard."
+                lower_text="Moreover, our concierge partners handle the essentials like setting up council tax, energy, and broadband, making your move-in as smooth as possible. Just book an appointment with the team once your move-in date is confirmed, and you're all set."
               />
 
               <div className="relative">
