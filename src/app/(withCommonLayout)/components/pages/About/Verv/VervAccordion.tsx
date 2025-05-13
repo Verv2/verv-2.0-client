@@ -19,26 +19,13 @@ const VervAccordion = () => {
             What is Verve all about?
           </AccordionTrigger>
           <AccordionContent>
-            <div className="text-colorTextSecondary flex flex-col gap-4">
-              <p className="leading-[24px]">
-                Founded in 2018, Verve quickly became the UK’s largest letting
-                agent with one clear mission: to make renting fairer, safer, and
-                more affordable for everyone.
-              </p>
-              <p className="leading-[24px]">
-                We guide you every step of the way—from finding the right tenant
-                to setting up the tenancy and even collecting the rent. We offer
-                services like gas and electricity certifications, inventories,
-                photography, insurance, and more, all tailored to your needs.
-              </p>
-              <p className="leading-[24px]">
-                Over 7,084,000 people have used Verv to find and let property,
-                helping to create over 1,271,148 tenancies. As a member of the
-                Property Ombudsman for Lettings and several other trusted
-                associations, you can be confident that you&apos;re in safe
-                hands.
-              </p>
-            </div>
+            <p className="text-colorTextSecondary leading-[24px] text-base">
+              Verv is a digital platform transforming the rental market. We
+              focus on making renting simpler, safer, and fairer by providing
+              modern tools and transparent processes. We streamline everything
+              from advertising properties to managing tenancies in one
+              easy-to-use system.
+            </p>
           </AccordionContent>
         </AccordionItem>
         <AccordionItem value="item-2">
@@ -46,10 +33,14 @@ const VervAccordion = () => {
             How does it work?
           </AccordionTrigger>
           <AccordionContent>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ex ad
-            rerum numquam ducimus? Impedit odio deleniti autem. Alias unde fuga
-            vitae tempore dicta blanditiis quae vel distinctio nesciunt
-            reprehenderit. Maxime.
+            <p className="text-colorTextSecondary leading-[24px] text-base">
+              Verv simplifies the renting process for both landlords and
+              tenants. Landlords can list properties, connect with verified
+              tenants, and manage every aspect of the tenancy. Tenants can
+              browse verified listings, communicate securely, and manage their
+              rental journey in one place. Reviews and ratings help build trust
+              and ensure informed decisions for everyone involved.
+            </p>
           </AccordionContent>
         </AccordionItem>
         <AccordionItem value="item-3">
@@ -57,10 +48,12 @@ const VervAccordion = () => {
             What charges are there for Landlords?
           </AccordionTrigger>
           <AccordionContent>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque
-            perspiciatis, quos sunt fugit recusandae, fugiat, suscipit sed
-            debitis praesentium ratione minima eveniet eos incidunt facere dicta
-            tempore aspernatur quasi aliquid?
+            <p className="text-colorTextSecondary leading-[24px] text-basev">
+              Listing properties on Verv is free. Optional add-ons, like
+              boosting visibility or fast-tracking tenant checks, are available
+              for a small fee. Our pricing is transparent and straightforward,
+              offering significant savings compared to traditional approaches.
+            </p>
           </AccordionContent>
         </AccordionItem>
         <AccordionItem value="item-4">
@@ -68,10 +61,13 @@ const VervAccordion = () => {
             What charges are there for Tenants?
           </AccordionTrigger>
           <AccordionContent>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laborum
-            voluptas quas repellat voluptatum ratione et maiores sequi facere,
-            incidunt necessitatibus veritatis impedit odio corporis provident
-            dolorem, animi enim dolor magnam.
+            <p className="text-colorTextSecondary leading-[24px] text-base">
+              Browsing and messaging landlords on Verv is completely free. If
+              you choose to apply for a property, a refundable holding deposit
+              is required. This amount is credited toward your first month’s
+              rent if the tenancy proceeds. Verv adheres strictly to the Tenant
+              Fees Act 2019, ensuring fairness and transparency for tenants.
+            </p>
           </AccordionContent>
         </AccordionItem>
         <AccordionItem value="item-5">
@@ -79,13 +75,16 @@ const VervAccordion = () => {
             What is Rent Now?
           </AccordionTrigger>
           <AccordionContent>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Temporibus
-            excepturi sed, minus repellendus fugiat vel eum inventore corrupti
-            reprehenderit quis aliquid eaque ullam error consequuntur saepe
-            voluptatibus eos veniam illo?
+            <p className="text-colorTextSecondary leading-[24px] text-base">
+              Rent Ready is our all-in-one solution for landlords and tenants
+              once they’ve agreed to proceed. It includes referencing, contract
+              signing, deposit protection, and rent automation, ensuring a
+              smooth and professional tenancy process that complies with all
+              legal requirements.
+            </p>
           </AccordionContent>
         </AccordionItem>
-        <AccordionItem value="item-6">
+        {/* <AccordionItem value="item-6">
           <AccordionTrigger className="text-colorTextPrimary text-2xl font-semibold leading-[32px]">
             How do I start Rent Now?
           </AccordionTrigger>
@@ -95,27 +94,33 @@ const VervAccordion = () => {
             ut debitis! Odit eaque aperiam error eligendi distinctio, nobis
             voluptatum minima neque ipsam.
           </AccordionContent>
-        </AccordionItem>
-        <AccordionItem value="item-7">
+        </AccordionItem> */}
+        <AccordionItem value="item-6">
           <AccordionTrigger className="text-colorTextPrimary text-2xl font-semibold leading-[32px]">
             Why do tenants have to place a holding deposit?
           </AccordionTrigger>
           <AccordionContent>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam enim
-            animi minus quos natus ea dolor vitae voluptates, veritatis
-            necessitatibus nemo, sequi tempora a. Quidem quasi quo in temporibus
-            libero!
+            <p className="text-colorTextSecondary leading-[24px] text-basev">
+              A holding deposit demonstrates a tenant’s commitment to renting a
+              property, giving landlords the confidence to focus on the
+              application. If the tenancy proceeds, this deposit is applied
+              toward the first month’s rent. In case of cancellation or false
+              information, the deposit may be retained to cover incurred costs,
+              ensuring fairness for all parties.
+            </p>
           </AccordionContent>
         </AccordionItem>
-        <AccordionItem value="item-8">
+        <AccordionItem value="item-7">
           <AccordionTrigger className="text-colorTextPrimary text-2xl font-semibold leading-[32px]">
             Who keeps the holding deposit?
           </AccordionTrigger>
           <AccordionContent>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-            Voluptatibus, consequuntur eveniet, distinctio quia quo minima rem,
-            sunt quibusdam reprehenderit facilis placeat modi corrupti nemo
-            fugit nihil laborum cum perspiciatis nulla?
+            <p className="text-colorTextSecondary leading-[24px] text-base">
+              Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+              Voluptatibus, consequuntur eveniet, distinctio quia quo minima
+              rem, sunt quibusdam reprehenderit facilis placeat modi corrupti
+              nemo fugit nihil laborum cum perspiciatis nulla?
+            </p>
           </AccordionContent>
         </AccordionItem>
       </Accordion>
