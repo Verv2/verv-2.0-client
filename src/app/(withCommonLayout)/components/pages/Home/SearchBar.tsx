@@ -54,8 +54,11 @@ const SearchBar = () => {
       searchTerm: data.search,
       propertyFor: toggle.toUpperCase(),
     };
-    // setQuery(data.search);
     console.log("Search submitted:", queryData);
+    const queryString = searchTerm.trim().split(" ").join("+");
+    router.push(
+      `/all-listings?searchTerm=${queryString}&propertyFor=${toggle.toUpperCase()}`
+    );
   };
 
   const handleSeeAll = (query: string) => {
