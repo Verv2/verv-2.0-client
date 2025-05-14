@@ -1,40 +1,63 @@
+"use client";
+
 import React from "react";
 import PricingSection from "./PricingSection";
 import { additionalServicesData } from "./pricingConstants";
 import Services from "./Services";
 import { Button } from "@/components/ui/button";
+import { useUser } from "@/context/user.provider";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 const Pricing = () => {
+  const { user } = useUser();
+  const router = useRouter();
+
+  const handleAddListing = () => {
+    if (!user) {
+      router.push("/login");
+    } else if (!user.isProfileUpdated && user?.role === "LANDLORD") {
+      router.push("/profile/complete-profile/landlord");
+    } else if (user?.role === "LANDLORD") {
+      router.push("/listing/add-property");
+    } else {
+      toast.error("You need to be a landlord to create your listing.");
+    }
+  };
+
   return (
     <>
-      <section>
-        <div className="w-full bg-[#30455f] ">
-          <div className="lg:w-[1216px] w-5/6 mx-auto lg:justify-between py-[36px] grid lg:grid-cols-3 grid-cols-1 gap-y-12">
-            <div className="text-center lg:text-left lg:col-span-2">
-              <h1 className="text-white lg:text-[40px] text-[28px] font-bold leading-[48px] ">
+      <section className="w-full bg-[#30455f] py-[36.5]">
+        <div className="w-[1216px] m-auto flex justify-between items-center">
+          <div className="w-[616px] flex flex-col items-start gap-8">
+            <div className="text-white">
+              <h2 className="text-[40px] font-bold leading-[120%]">
                 Simplified Pricing
-              </h1>
-              <h6 className=" lg:w-3/5 opacity-70 text-white lg:text-[24px] text-[18px] font-semibold leading-[33.60px] mt-8 lg:px-0 px-3 ">
+              </h2>
+              <p className="text-[24px] font-semibold leading-[140%] opacity-70 mt-4">
                 List your property. Access direct tenants. Transparent pricing,
                 the rest is history.
-              </h6>
-              <div className="mt-9 lg:justify-between lg:inline-flex grid grid-cols-1 gap-y-3">
-                <Button className=" lg:w-auto w-full max-w-[350px] mx-auto  text-white text-lg font-semibold px-18 py-2 bg-[#50b533] rounded-[32px] lg:mr-4 mr-0">
-                  List for Free
-                </Button>
-                <Button className=" lg:w-auto w-full max-w-[350px] mx-auto text-[#30455f] text-lg font-semibold px-8 py-2 bg-[#FFFFFF] rounded-[32px] ">
-                  More Landlord Services
-                </Button>
-              </div>
+              </p>
             </div>
-            <div className="bg-white/10 rounded-2xl lg:col-span-1 flex-col justify-center items-center gap-2 inline-flex px-8 py-10 lg:py-0 text-center">
-              <h3 className="text-white text-[20px] font-semibold leading-normal">
-                Landlords we’ve got you covered.
-              </h3>
-              <h6 className="text-center text-white text-[16px] font-normal leading-normal">
-                No excess agency fees anymore.
-              </h6>
+            <div className="flex gap-4">
+              <Button
+                className="w-[300px] h-[56px] text-lg font-semibold py-2 px-4 bg-colorButton rounded-[32px]"
+                onClick={handleAddListing}
+              >
+                List for Free
+              </Button>
+              <Button className="w-[300px] h-[56px] text-lg font-semibold text-colorTextPrimary hover:text-white py-2 px-4 bg-white rounded-[32px]">
+                More Landlord Services
+              </Button>
             </div>
+          </div>
+          <div className="w-[400px] h-[181px] p-2 flex flex-col justify-center items-center gap-2 flex-shrink-0 rounded-[16px] bg-white/10">
+            <h2 className="text-xl font-semibold leading-[120%] text-white">
+              Landlords we’ve got you covered.
+            </h2>
+            <h3 className="leading-[150%] text-white">
+              No excess agency fees anymore.
+            </h3>
           </div>
         </div>
       </section>

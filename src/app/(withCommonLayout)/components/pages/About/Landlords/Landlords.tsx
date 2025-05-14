@@ -18,7 +18,7 @@ const Landlords = () => {
   const handleAddListing = () => {
     if (!user) {
       router.push("/login");
-    } else if (!user.isProfileUpdated) {
+    } else if (!user.isProfileUpdated && user?.role === "LANDLORD") {
       router.push("/profile/complete-profile/landlord");
     } else if (user?.role === "LANDLORD") {
       router.push("/listing/add-property");

@@ -48,13 +48,13 @@ export const pricingData: TPricingPlan[] = [
   },
   {
     id: 2,
-    pricingTitle: "Premier Listings",
-    planId: "premier-listings",
-    price: 74.99,
+    pricingTitle: "Rent Ready",
+    planId: "rent-ready",
+    price: 54.99,
     buttonName: "Add Listing Now",
-    buttonColor: "bg-[#314660]",
+    buttonColor: "bg-[#50B533]",
     buttonText: "text-[#FFFFFF]",
-    bgClr: "bg-[#F5F5F5]",
+    bgClr: "bg-[#EEF8EB]",
     advertTitle: "3 Months Adverting on",
     offers: [
       {
@@ -73,13 +73,13 @@ export const pricingData: TPricingPlan[] = [
   },
   {
     id: 3,
-    pricingTitle: "Rent Ready",
-    planId: "rent-ready",
-    price: 54.99,
+    pricingTitle: "Premier Listings",
+    planId: "premier-listings",
+    price: 74.99,
     buttonName: "Add Listing Now",
-    buttonColor: "bg-[#50B533]",
+    buttonColor: "bg-[#314660]",
     buttonText: "text-[#FFFFFF]",
-    bgClr: "bg-[#EEF8EB]",
+    bgClr: "bg-[#F5F5F5]",
     advertTitle: "3 Months Adverting on",
     offers: [
       {
