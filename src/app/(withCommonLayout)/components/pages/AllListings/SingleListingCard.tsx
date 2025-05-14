@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { TGetListing } from "@/types";
 
 const SingleListingCard = ({ listing }: { listing: TGetListing }) => {
+  const firstAddress = listing.address.split(",")[0].slice(0, 35);
   // console.log("single listing", listing);
   return (
     <div className="flex w-[384px] h-[549px] flex-col justify-center items-center gap-[32px] rounded-[24px] bg-white shadow-[0px_4px_20px_0px_rgba(0,0,0,0.08)]">
@@ -33,7 +34,7 @@ const SingleListingCard = ({ listing }: { listing: TGetListing }) => {
                 {listing.town}
               </p>
               <p className="self-stretch text-[#56677D] font-inter text-[16px] font-normal leading-[150%]">
-                {listing.address}
+                {firstAddress}
               </p>
               <div className="flex items-center gap-[4px]">
                 <div className="flex w-[20px] h-[20px] p-[1.667px] px-[2.5px] justify-center items-center">

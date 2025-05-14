@@ -9,6 +9,8 @@ import { useRouter } from "next/navigation";
 const SingleListCard = ({ property }: { property: any }) => {
   const router = useRouter();
 
+  const firstAddress = property.address.split(",")[0].slice(0, 35);
+
   return (
     <div
       className="w-[384px] rounded-[24px] bg-white shadow-md mb-1 cursor-pointer"
@@ -44,7 +46,7 @@ const SingleListCard = ({ property }: { property: any }) => {
           {property.town}
         </h2>
         <p className="text-base font-normal text-colorTextSecondary leading-[150%] mt-1">
-          {property.address}
+          {firstAddress}
         </p>
         <div className="w-[336px] border border-[#EAEDEF] my-2"></div>
 
