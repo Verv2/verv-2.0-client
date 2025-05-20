@@ -4,7 +4,7 @@ import { useGetAllListings } from "@/hooks/listing.hook";
 import SingleListingCard from "./SingleListingCard";
 import Loading from "../../UI/Loading/Loading";
 import { TGetListing } from "@/types";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { searchParamsToObject } from "@/helpers/searchParamsToObject";
 import {
   Dialog,
@@ -21,31 +21,39 @@ import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
-  AreaIcon,
   LocationIcon,
   SelectBedIcon,
   SelectPriceIcon,
 } from "@/assets/icons/icons";
+import { toTitleCase } from "@/helpers/toTitleCase";
+import { buildQueryString } from "@/helpers/buildQueryString";
 
 const AllListings = () => {
+  const router = useRouter();
   const searchParams = useSearchParams();
   const paramsObject = searchParamsToObject(searchParams);
   const [open, setOpen] = useState(false);
 
-  const { register, handleSubmit, watch } = useForm();
+  const { register, handleSubmit } = useForm();
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     console.log("Search submitted:", data);
+    const queryString = buildQueryString(searchParams, data);
+    const finalURL = `/all-listings${queryString}`;
+    console.log("finalURL", finalURL);
+    router.push(finalURL);
   };
 
-  console.log("paramsObject", paramsObject);
-  console.log("searchParams", searchParams);
+  const searchTerm = toTitleCase(searchParams.get("searchTerm"));
+  const propertyFor = toTitleCase(searchParams.get("propertyFor"));
 
   const {
     data: listingData,
     isLoading: listingDataLoading,
     isSuccess: listingDataSuccess,
   } = useGetAllListings(paramsObject);
+
+  // console.log("listingData", listingData?.meta);
 
   if (listingDataLoading) {
     return <Loading />;
@@ -71,7 +79,7 @@ const AllListings = () => {
                 className="pl-8 h-[54px] rounded-l-[32px] border-none"
               />
             </div>
-            <div className="relative">
+            {/* <div className="relative">
               <div className="absolute left-1 top-1/2 -translate-y-1/2">
                 <AreaIcon />
               </div>
@@ -81,15 +89,15 @@ const AllListings = () => {
                 {...register("area")}
                 className="pl-8 h-[54px] border-none"
               />
-            </div>
+            </div> */}
             <div className="relative">
               <div className="absolute left-1 top-1/2 -translate-y-1/2">
                 <SelectBedIcon />
               </div>
               <Input
-                type="text"
+                type="number"
                 placeholder="Select Bedrooms"
-                {...register("bedrooms")}
+                {...register("bedrooms", { valueAsNumber: true })}
                 className="pl-8 h-[54px] border-none"
               />
             </div>
@@ -98,9 +106,9 @@ const AllListings = () => {
                 <SelectPriceIcon />
               </div>
               <Input
-                type="text"
+                type="number"
                 placeholder="Select Price"
-                {...register("price")}
+                {...register("monthlyRent", { valueAsNumber: true })}
                 className="pl-8 h-[54px] border-none"
               />
             </div>
@@ -142,7 +150,7 @@ const AllListings = () => {
                   <DialogDescription>
                     {open && (
                       <GoogleMaps
-                        locationMarkers={listingData}
+                        locationMarkers={listingData.data}
                         mapClassName="max-w-[1400px] h-[70vh]"
                         mapZoom={2}
                       />
@@ -180,14 +188,16 @@ const AllListings = () => {
           <div className="flex flex-wrap w-[1216px] flex-col items-center gap-[32px]">
             <div className="flex flex-col items-start gap-[16px]">
               <p className="text-[#314660] font-inter text-[32px] font-semibold leading-[120%]">
-                Properties To Rent In Birmingham, West Midlands
+                {searchTerm.length > 0 && propertyFor.length > 0
+                  ? `Properties To ${propertyFor} In ${searchTerm}`
+                  : "All Properties"}
               </p>
               <div className="flex w-[1216px] justify-between items-center">
                 <div className="flex items-center gap-[2px]">
                   <p className="text-[#314660] font-inter text-[18px] font-medium leading-normal">
-                    907 properties found
+                    {listingData?.meta.total} properties found
                   </p>
-                  <div className="flex w-[24px] h-[24px] p-[8px] justify-center items-center">
+                  {/* <div className="flex w-[24px] h-[24px] p-[8px] justify-center items-center">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="8"
@@ -200,11 +210,11 @@ const AllListings = () => {
                         fill="#56677D"
                       />
                     </svg>
-                  </div>
-                  <p className="text-[#314660] font-inter text-[18px] font-normal leading-[150%]">
+                  </div> */}
+                  {/* <p className="text-[#314660] font-inter text-[18px] font-normal leading-[150%]">
                     There are 74 new properties since your last visit 3 days
                     ago.
-                  </p>
+                  </p> */}
                 </div>
                 <div className="flex items-center gap-0">
                   <button className="flex items-center gap-0">
@@ -233,7 +243,7 @@ const AllListings = () => {
             {/* card */}
             <div className="flex flex-wrap items-start gap-[32px] self-stretch">
               {/* single card */}
-              {listingData.map((listing: TGetListing) => (
+              {listingData.data.map((listing: TGetListing) => (
                 <div key={listing.id}>
                   <SingleListingCard listing={listing} />
                 </div>

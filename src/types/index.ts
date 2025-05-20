@@ -38,7 +38,7 @@ export interface IUserContext {
   firstName: string;
   lastName: string;
   phoneNumber: string;
-  role: "SUPER_ADMIN" | "ADMIN" | "LANDLORD" | "TENANT";
+  role: "SUPER_ADMIN" | "ADMIN" | "LANDLORD" | "TENANT" | "USER";
   profilePhoto: string;
   isProfileUpdated: boolean;
   status: "ACTIVE" | "BLOCKED" | "DELETED";
@@ -276,10 +276,10 @@ export type TGetListing = {
   houseNumber: string;
   address: string;
   address2: string;
-  propertyType: "FLAT" | "HOUSE" | string; // You can refine this union
+  propertyType: "FLAT" | "HOUSE" | string;
   bedrooms: number;
   bathrooms: number;
-  furnishingOptions: "FURNISHED" | "UNFURNISHED" | string; // You can refine this too
+  furnishingOptions: "FURNISHED" | "UNFURNISHED" | string;
   town: string;
   description: string;
 

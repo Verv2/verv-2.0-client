@@ -81,7 +81,8 @@ export const getAllListing = async (queryParams: Record<string, string>) => {
       params: queryParams,
     });
 
-    return data.data;
+    // return data.data;
+    return data;
   } catch (error) {
     const axiosError = error as AxiosError;
 

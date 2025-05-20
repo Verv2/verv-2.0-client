@@ -43,7 +43,9 @@ const Navbar = () => {
   const handleProfile = (userId: string) => {
     console.log("user ID", userId);
     if (!user?.isProfileUpdated) {
-      if (user?.role === "LANDLORD") {
+      if (user?.role === "USER") {
+        router.push("/profile/complete-profile");
+      } else if (user?.role === "LANDLORD") {
         router.push("/profile/complete-profile/landlord");
       } else if (user?.role === "TENANT") {
         router.push("/profile/complete-profile/tenant");
@@ -137,7 +139,7 @@ const Navbar = () => {
         <div className="text-lg flex justify-end items-center gap-14">
           {/* signin/register */}
           <div className="flex justify-end items-center gap-6 font-medium">
-            {(!user || user?.role === "LANDLORD") && (
+            {(!user || user?.role === "LANDLORD" || user?.role === "USER") && (
               <Button
                 className="text-lg text-colorButton font-semibold bg-white rounded-[32px] w-[180px] h-[56px] py-2 px-4"
                 onClick={handleAddListing}
