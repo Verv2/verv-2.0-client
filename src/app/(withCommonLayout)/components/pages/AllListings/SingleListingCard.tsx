@@ -150,7 +150,7 @@ const SingleListingCard = ({ listing }: { listing: TGetListing }) => {
                 </defs>
               </svg>
               <p className="text-[#56677D] font-inter text-[14px] font-normal leading-[150%]">
-                5x7 m²
+                {listing.size} m²
               </p>
             </div>
           </div>

@@ -24,6 +24,7 @@ const generateDescription = async (
     - Bathrooms: ${propertyData.bathrooms}
     - Furnishing Options: ${propertyData.furnishingOptions}
     - Town: ${propertyData.town}
+    - District: ${propertyData.district}
   `;
 
   const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY as string);

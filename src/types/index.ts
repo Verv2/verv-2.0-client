@@ -189,6 +189,7 @@ export type TGeneratePropertyDescription = {
   address2?: string;
   houseNumber: string;
   town: string;
+  district: string;
   propertyType: string;
   bedrooms: number;
   bathrooms: number;
@@ -282,6 +283,8 @@ export type TGetListing = {
   furnishingOptions: "FURNISHED" | "UNFURNISHED" | string;
   town: string;
   description: string;
+  size: number;
+  district: string;
 
   latitude?: number;
   longitude?: number;

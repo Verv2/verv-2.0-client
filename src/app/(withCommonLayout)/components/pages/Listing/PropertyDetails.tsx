@@ -132,6 +132,7 @@ const PropertyDetails = () => {
   const postcode = watch("postcode");
   const address = watch("address");
   const town = watch("town");
+  const district = watch("district");
   const propertyType = watch("propertyType");
   const bedrooms = watch("bedrooms");
   const bathrooms = watch("bathrooms");
@@ -146,6 +147,7 @@ const PropertyDetails = () => {
     bedrooms,
     bathrooms,
     furnishingOptions,
+    district,
   };
 
   const handleDescriptionGeneration = async () => {
@@ -204,6 +206,8 @@ const PropertyDetails = () => {
         address2: data?.address2,
         houseNumber: data.houseNumber,
         town: data.town,
+        district: data.district,
+        size: data.size,
         propertyType: data.propertyType,
         bedrooms: data.bedrooms,
         bathrooms: data.bathrooms,
@@ -326,6 +330,7 @@ const PropertyDetails = () => {
     if (singleAddress) {
       setValue("address2", singleAddress?.line_1);
       setValue("town", singleAddress?.town_or_city);
+      setValue("district", singleAddress?.district);
     }
   }, [selectedAddress, addresses, singleAddress, setValue]);
 
@@ -425,6 +430,14 @@ const PropertyDetails = () => {
                 register={register}
                 errors={errors}
               />
+              <InputField
+                registerName="district"
+                label="District"
+                type="text"
+                placeholder="i.e. Westminster"
+                register={register}
+                errors={errors}
+              />
             </div>
 
             <div className="space-y-8 w-1/2">
@@ -436,13 +449,25 @@ const PropertyDetails = () => {
                 register={register}
                 errors={errors}
               />
-              <SelectField
-                registerName="propertyType"
-                label="Property Type"
-                control={control} // Pass the correctly typed control
-                errors={errors}
-                options={propertyTypeOptions}
-              />
+              <div className="flex items-center gap-4">
+                <SelectField
+                  registerName="propertyType"
+                  label="Property Type"
+                  control={control} // Pass the correctly typed control
+                  errors={errors}
+                  options={propertyTypeOptions}
+                  className="w-1/2"
+                />
+                <InputField
+                  registerName="size"
+                  label="Property Size"
+                  type="number"
+                  placeholder="Size in sq ft"
+                  register={register}
+                  errors={errors}
+                  className="w-1/2"
+                />
+              </div>
 
               <div className="flex items-center gap-4">
                 <InputField
@@ -562,6 +587,11 @@ const PropertyDetails = () => {
                   selected={date}
                   onSelect={setDate}
                   className="rounded-md border shadow"
+                  classNames={{
+                    day: "w-full h-full rounded-full hover:bg-black hover:text-white",
+                    day_selected: "bg-colorButton text-white text-bold",
+                    day_today: "border border-colorButton",
+                  }}
                 />
               </div>
             </div>

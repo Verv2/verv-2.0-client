@@ -25,6 +25,12 @@ export const listingSchema = z.object({
   propertyType: z.enum(["FLAT", "BEDSIT"], {
     required_error: "Please select a type",
   }),
+  size: z
+    .number({
+      required_error: "Please enter the property size",
+      invalid_type_error: "Size must be a number",
+    })
+    .min(1, "Number of bedrooms is required"),
   bedrooms: z
     .number({
       required_error: "Please enter the number of bedrooms",
@@ -43,6 +49,9 @@ export const listingSchema = z.object({
   town: z
     .string({ required_error: "Please enter a town" })
     .min(1, "Town is required"),
+  district: z
+    .string({ required_error: "Please enter your district" })
+    .min(1, "District is required"),
   description: z
     .string()
     .min(1, "Description is required")
@@ -106,8 +115,10 @@ export const propertyDetailsSchema = listingSchema.pick({
   address: true,
   address2: true,
   town: true,
+  district: true,
   description: true,
   propertyType: true,
+  size: true,
   bedrooms: true,
   bathrooms: true,
   furnishingOptions: true,

@@ -300,7 +300,7 @@ const SingleListingPage = ({ listingId }: { listingId: string }) => {
                       </p>
                     </div>
                     <p className="text-lg text-colorTextPrimary font-semibold leading-[150%]">
-                      6
+                      {data.size} m²
                     </p>
                   </div>
                 </div>
@@ -312,11 +312,11 @@ const SingleListingPage = ({ listingId }: { listingId: string }) => {
                     <div className="flex items-center gap-2">
                       <BedIcon width={24} height={24} stroke="#50B533" />
                       <p className="text-lg text-colorTextPrimary leading-[150%]">
-                        Bed
+                        Deposit Amount
                       </p>
                     </div>
                     <p className="text-lg text-colorTextPrimary font-semibold leading-[150%]">
-                      6
+                      {data.depositAmount}
                     </p>
                   </div>
 
@@ -325,11 +325,11 @@ const SingleListingPage = ({ listingId }: { listingId: string }) => {
                     <div className="flex items-center gap-2">
                       <BathIcon width={24} height={24} fill="#50B533" />
                       <p className="text-lg text-colorTextPrimary leading-[150%]">
-                        Bathroom
+                        Max Tenant
                       </p>
                     </div>
                     <p className="text-lg text-colorTextPrimary font-semibold leading-[150%]">
-                      6
+                      {data.minimumTenancy}
                     </p>
                   </div>
 
@@ -338,11 +338,11 @@ const SingleListingPage = ({ listingId }: { listingId: string }) => {
                     <div className="flex items-center gap-2">
                       <SquareIcon width={24} height={24} stroke="#50B533" />
                       <p className="text-lg text-colorTextPrimary leading-[150%]">
-                        Area
+                        Minimum Tenancy
                       </p>
                     </div>
                     <p className="text-lg text-colorTextPrimary font-semibold leading-[150%]">
-                      6
+                      {data.maximumTenancy}
                     </p>
                   </div>
                 </div>
