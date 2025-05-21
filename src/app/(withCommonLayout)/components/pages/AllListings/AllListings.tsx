@@ -10,6 +10,7 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -18,7 +19,7 @@ import GoogleMaps from "../../UI/Map/GoogleMaps";
 import { useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { Input } from "@/components/ui/input";
-import { Search } from "lucide-react";
+import { Search, SlidersHorizontal } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   LocationIcon,
@@ -27,6 +28,7 @@ import {
 } from "@/assets/icons/icons";
 import { toTitleCase } from "@/helpers/toTitleCase";
 import { buildQueryString } from "@/helpers/buildQueryString";
+import AdvancedFilter from "./AdvancedFilter";
 
 const AllListings = () => {
   const router = useRouter();
@@ -61,62 +63,81 @@ const AllListings = () => {
 
   return (
     listingDataSuccess && (
-      <div className="flex flex-col">
+      <div className="flex flex-col w-full">
         {/* filter */}
         <div className="inline-flex h-[160px] p-[52px_352px] justify-center items-center flex-shrink-0 bg-[#EEF1F3]">
           <form
             onSubmit={handleSubmit(onSubmit)}
-            className="w-full h-[56px] flex justify-between items-center gap-2 rounded-[32px] px-2 border border-solid border-[#CED3D9] bg-white"
+            className="flex items-center gap-5 w-full "
           >
-            <div className="relative">
-              <div className="absolute left-1 top-1/2 -translate-y-1/2">
-                <LocationIcon width={18} height={20} />
+            <div className="w-full h-[56px] flex justify-between items-center gap-2 rounded-[32px] px-2 border border-solid border-[#CED3D9] bg-white">
+              <div className="relative">
+                <div className="absolute left-1 top-1/2 -translate-y-1/2">
+                  <LocationIcon width={18} height={20} />
+                </div>
+                <Input
+                  type="text"
+                  placeholder="e.g. Oxford or NW3"
+                  {...register("searchTerm")}
+                  className="pl-8 h-[54px] rounded-l-[32px] border-none"
+                />
               </div>
-              <Input
-                type="text"
-                placeholder="e.g. Oxford or NW3"
-                {...register("searchTerm")}
-                className="pl-8 h-[54px] rounded-l-[32px] border-none"
-              />
+              <div className="relative">
+                <div className="absolute left-1 top-1/2 -translate-y-1/2">
+                  <SelectBedIcon />
+                </div>
+                <Input
+                  type="number"
+                  placeholder="Select Bedrooms"
+                  {...register("bedrooms", { valueAsNumber: true })}
+                  className="pl-8 h-[54px] border-none"
+                />
+              </div>
+              <div className="relative">
+                <div className="absolute left-1 top-1/2 -translate-y-1/2">
+                  <SelectPriceIcon />
+                </div>
+                <Input
+                  type="number"
+                  placeholder="Select Price"
+                  {...register("monthlyRent", { valueAsNumber: true })}
+                  className="pl-8 h-[54px] border-none"
+                />
+              </div>
+
+              <Button className="w-[120px] h-[40px] rounded-[32px] bg-colorButton">
+                <Search /> Search
+              </Button>
             </div>
-            {/* <div className="relative">
-              <div className="absolute left-1 top-1/2 -translate-y-1/2">
-                <AreaIcon />
-              </div>
-              <Input
-                type="text"
-                placeholder="Select Area"
-                {...register("area")}
-                className="pl-8 h-[54px] border-none"
-              />
-            </div> */}
-            <div className="relative">
-              <div className="absolute left-1 top-1/2 -translate-y-1/2">
-                <SelectBedIcon />
-              </div>
-              <Input
-                type="number"
-                placeholder="Select Bedrooms"
-                {...register("bedrooms", { valueAsNumber: true })}
-                className="pl-8 h-[54px] border-none"
-              />
-            </div>
-            <div className="relative">
-              <div className="absolute left-1 top-1/2 -translate-y-1/2">
-                <SelectPriceIcon />
-              </div>
-              <Input
-                type="number"
-                placeholder="Select Price"
-                {...register("monthlyRent", { valueAsNumber: true })}
-                className="pl-8 h-[54px] border-none"
-              />
-            </div>
-            <Button className="w-[120px] h-[40px] rounded-[32px] bg-colorButton">
-              <Search /> Search
-            </Button>
+
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button
+                  type="button"
+                  className="w-[220px] h-[56px] px-4 py-2 rounded-[32px] bg-white text-lg font-medium text-colorTextPrimary hover:text-white"
+                >
+                  <SlidersHorizontal /> Advanced Filter
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-[425px]">
+                <DialogHeader>
+                  <DialogTitle>Filter</DialogTitle>
+                  <DialogDescription>
+                    Select the filter according to your needs.
+                  </DialogDescription>
+                </DialogHeader>
+                <div className="grid gap-4 py-4">
+                  <h2>This is filter Modal</h2>
+                </div>
+                <DialogFooter>
+                  <Button type="submit">Save changes</Button>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
           </form>
         </div>
+        {/* advanced filter */}
+        <AdvancedFilter />
         {/* view properties on map & email alert*/}
         <div className="inline-flex h-[160px] p-[52px_352px] justify-center items-center flex-shrink-0">
           <div className="flex w-[1216px] justify-between items-center">
