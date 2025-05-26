@@ -8,7 +8,6 @@ import Loading from "../components/UI/Loading/Loading";
 // }
 
 const page = () => {
-  // console.log("searchParams", searchParams);
   return (
     <>
       <Suspense fallback={<Loading />}>

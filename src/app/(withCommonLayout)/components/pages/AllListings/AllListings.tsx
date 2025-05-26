@@ -4,58 +4,41 @@ import { useGetAllListings } from "@/hooks/listing.hook";
 import SingleListingCard from "./SingleListingCard";
 import Loading from "../../UI/Loading/Loading";
 import { TGetListing } from "@/types";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { searchParamsToObject } from "@/helpers/searchParamsToObject";
 import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
 import GoogleMaps from "../../UI/Map/GoogleMaps";
 import { useState } from "react";
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import { Input } from "@/components/ui/input";
-import { Search, SlidersHorizontal } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import {
-  LocationIcon,
-  SelectBedIcon,
-  SelectPriceIcon,
-} from "@/assets/icons/icons";
 import { toTitleCase } from "@/helpers/toTitleCase";
-import { buildQueryString } from "@/helpers/buildQueryString";
-import AdvancedFilter from "./AdvancedFilter";
+import SearchAndQueries from "./SearchAndQueries";
+// import AdvancedFilter from "./AdvancedFilter";
+// import AdvancedFilter from "./AdvancedFilter";
 
 const AllListings = () => {
-  const router = useRouter();
   const searchParams = useSearchParams();
   const paramsObject = searchParamsToObject(searchParams);
   const [open, setOpen] = useState(false);
 
-  const { register, handleSubmit } = useForm();
-
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    console.log("Search submitted:", data);
-    const queryString = buildQueryString(searchParams, data);
-    const finalURL = `/all-listings${queryString}`;
-    console.log("finalURL", finalURL);
-    router.push(finalURL);
-  };
-
   const searchTerm = toTitleCase(searchParams.get("searchTerm"));
   const propertyFor = toTitleCase(searchParams.get("propertyFor"));
+
+  console.log("searchParams", searchParams);
+  console.log("paramsObject", paramsObject);
+  console.log("searchTerm", searchTerm);
+  console.log("propertyFor", propertyFor);
 
   const {
     data: listingData,
     isLoading: listingDataLoading,
     isSuccess: listingDataSuccess,
   } = useGetAllListings(paramsObject);
-
-  // console.log("listingData", listingData?.meta);
 
   if (listingDataLoading) {
     return <Loading />;
@@ -65,79 +48,8 @@ const AllListings = () => {
     listingDataSuccess && (
       <div className="flex flex-col w-full">
         {/* filter */}
-        <div className="inline-flex h-[160px] p-[52px_352px] justify-center items-center flex-shrink-0 bg-[#EEF1F3]">
-          <form
-            onSubmit={handleSubmit(onSubmit)}
-            className="flex items-center gap-5 w-full "
-          >
-            <div className="w-full h-[56px] flex justify-between items-center gap-2 rounded-[32px] px-2 border border-solid border-[#CED3D9] bg-white">
-              <div className="relative">
-                <div className="absolute left-1 top-1/2 -translate-y-1/2">
-                  <LocationIcon width={18} height={20} />
-                </div>
-                <Input
-                  type="text"
-                  placeholder="e.g. Oxford or NW3"
-                  {...register("searchTerm")}
-                  className="pl-8 h-[54px] rounded-l-[32px] border-none"
-                />
-              </div>
-              <div className="relative">
-                <div className="absolute left-1 top-1/2 -translate-y-1/2">
-                  <SelectBedIcon />
-                </div>
-                <Input
-                  type="number"
-                  placeholder="Select Bedrooms"
-                  {...register("bedrooms", { valueAsNumber: true })}
-                  className="pl-8 h-[54px] border-none"
-                />
-              </div>
-              <div className="relative">
-                <div className="absolute left-1 top-1/2 -translate-y-1/2">
-                  <SelectPriceIcon />
-                </div>
-                <Input
-                  type="number"
-                  placeholder="Select Price"
-                  {...register("monthlyRent", { valueAsNumber: true })}
-                  className="pl-8 h-[54px] border-none"
-                />
-              </div>
+        <SearchAndQueries searchParams={searchParams} />
 
-              <Button className="w-[120px] h-[40px] rounded-[32px] bg-colorButton">
-                <Search /> Search
-              </Button>
-            </div>
-
-            <Dialog>
-              <DialogTrigger asChild>
-                <Button
-                  type="button"
-                  className="w-[220px] h-[56px] px-4 py-2 rounded-[32px] bg-white text-lg font-medium text-colorTextPrimary hover:text-white"
-                >
-                  <SlidersHorizontal /> Advanced Filter
-                </Button>
-              </DialogTrigger>
-              <DialogContent className="sm:max-w-[425px]">
-                <DialogHeader>
-                  <DialogTitle>Filter</DialogTitle>
-                  <DialogDescription>
-                    Select the filter according to your needs.
-                  </DialogDescription>
-                </DialogHeader>
-                <div className="grid gap-4 py-4">
-                  <h2>This is filter Modal</h2>
-                </div>
-                <DialogFooter>
-                  <Button type="submit">Save changes</Button>
-                </DialogFooter>
-              </DialogContent>
-            </Dialog>
-          </form>
-        </div>
-        {/* advanced filter */}
-        <AdvancedFilter />
         {/* view properties on map & email alert*/}
         <div className="inline-flex h-[160px] p-[52px_352px] justify-center items-center flex-shrink-0">
           <div className="flex w-[1216px] justify-between items-center">
@@ -218,24 +130,6 @@ const AllListings = () => {
                   <p className="text-[#314660] font-inter text-[18px] font-medium leading-normal">
                     {listingData?.meta.total} properties found
                   </p>
-                  {/* <div className="flex w-[24px] h-[24px] p-[8px] justify-center items-center">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="8"
-                      height="9"
-                      viewBox="0 0 8 9"
-                      fill="none"
-                    >
-                      <path
-                        d="M8 4.5C8 6.70914 6.20914 8.5 4 8.5C1.79086 8.5 0 6.70914 0 4.5C0 2.29086 1.79086 0.5 4 0.5C6.20914 0.5 8 2.29086 8 4.5Z"
-                        fill="#56677D"
-                      />
-                    </svg>
-                  </div> */}
-                  {/* <p className="text-[#314660] font-inter text-[18px] font-normal leading-[150%]">
-                    There are 74 new properties since your last visit 3 days
-                    ago.
-                  </p> */}
                 </div>
                 <div className="flex items-center gap-0">
                   <button className="flex items-center gap-0">

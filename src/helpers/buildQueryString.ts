@@ -6,15 +6,20 @@ export const buildQueryString = (
   const query = new URLSearchParams(existingParams.toString());
 
   Object.entries(newParams).forEach(([key, value]) => {
-    if (
-      value !== undefined &&
-      value !== null &&
-      value !== "" &&
-      !(typeof value === "number" && isNaN(value))
-    ) {
+    const isInvalid =
+      value === undefined ||
+      value === null ||
+      value === "" ||
+      (typeof value === "number" && isNaN(value)) ||
+      (typeof value === "boolean" && value === false);
+
+    if (isInvalid) {
+      query.delete(key);
+    } else {
       query.set(key, String(value));
     }
   });
 
-  return `?${query.toString()}`;
+  const queryString = query.toString();
+  return queryString ? `?${queryString}` : "";
 };
