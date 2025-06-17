@@ -48,7 +48,7 @@ const Tenants = () => {
         <div className="w-[613px] flex items-center gap-[101.702px]">
           <div className="w-[272.201px] flex flex-col items-start gap-[31.906px] flex-shrink-0 ">
             <p className="self-stretch text-[#233244] text-[30px] font-semibold leading-[38px]">
-              Why use Verve?
+              Why use Verv?
             </p>
             <div className="flex flex-col items-start gap-[19.941px] self-stretch">
               <div className="flex items-center gap-[11.965px]">

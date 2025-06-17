@@ -58,8 +58,17 @@ const SearchAndQueries = ({
     propertyType: searchParams.get("propertyType") || "",
     billsIncluded: searchParams.get("billsIncluded") === "true" ? true : false,
     gardenAccess: searchParams.get("gardenAccess") === "true" ? true : false,
+    parking: searchParams.get("parking") === "true" ? true : false,
+    fireplace: searchParams.get("fireplace") === "true" ? true : false,
     studentAllowed:
       searchParams.get("studentAllowed") === "true" ? true : false,
+    familiesAllowed:
+      searchParams.get("familiesAllowed") === "true" ? true : false,
+    dssIncomeAccepted:
+      searchParams.get("dssIncomeAccepted") === "true" ? true : false,
+    petsAllowed: searchParams.get("petsAllowed") === "true" ? true : false,
+    smokersAllowed:
+      searchParams.get("smokersAllowed") === "true" ? true : false,
   };
 
   const { control, register, handleSubmit } = useForm({ defaultValues });
@@ -80,7 +89,7 @@ const SearchAndQueries = ({
             className="w-full h-full flex justify-between items-center gap-6"
             onSubmit={handleSubmit(onSubmit)}
           >
-            <div className="w-[972px] h-full pr-2 flex justify-between items-center gap-1 bg-white rounded-[32px] border border-solid border-[#CED3D9]">
+            <div className="w-[972px] h-full pr-2 py-[2px] flex justify-between items-center gap-1 bg-white rounded-[32px] border border-solid border-[#CED3D9]">
               {/* location or area */}
               <div className="relative w-[40%]">
                 <div className="absolute left-2 top-1/2 -translate-y-1/2">
@@ -90,7 +99,7 @@ const SearchAndQueries = ({
                   type="text"
                   placeholder="e.g. Oxford or NW3"
                   {...register("searchTerm")}
-                  className="h-14 pl-8 rounded-l-[32px] border-none"
+                  className="h-[52px] pl-8 rounded-l-[32px] border-none"
                 />
               </div>
 
@@ -103,7 +112,7 @@ const SearchAndQueries = ({
                   type="number"
                   placeholder="Bedrooms"
                   {...register("bedrooms", { valueAsNumber: true })}
-                  className="pl-8 h-14 border-none"
+                  className="pl-8 h-[52px] border-none"
                 />
               </div>
 
@@ -116,7 +125,7 @@ const SearchAndQueries = ({
                   type="number"
                   placeholder="Min Price"
                   {...register("minMonthlyRent", { valueAsNumber: true })}
-                  className="pl-8 h-14 border-none"
+                  className="pl-8 h-[52px] border-none"
                 />
               </div>
 
@@ -129,7 +138,7 @@ const SearchAndQueries = ({
                   type="number"
                   placeholder="Max Price"
                   {...register("maxMonthlyRent", { valueAsNumber: true })}
-                  className="pl-8 h-14 border-none"
+                  className="pl-8 h-[52px] border-none"
                 />
               </div>
 

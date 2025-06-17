@@ -25,7 +25,16 @@ export const propertyTypes = [
 ];
 
 export const checkBoxOptions: {
-  name: "billsIncluded" | "gardenAccess" | "studentAllowed";
+  name:
+    | "billsIncluded"
+    | "gardenAccess"
+    | "parking"
+    | "fireplace"
+    | "studentAllowed"
+    | "familiesAllowed"
+    | "dssIncomeAccepted"
+    | "petsAllowed"
+    | "smokersAllowed";
   label: string;
   defaultValue: boolean;
 }[] = [
@@ -40,8 +49,38 @@ export const checkBoxOptions: {
     defaultValue: false,
   },
   {
+    name: "parking",
+    label: "Parking",
+    defaultValue: false,
+  },
+  {
+    name: "fireplace",
+    label: "Fireplace",
+    defaultValue: false,
+  },
+  {
     name: "studentAllowed",
     label: "Students Allowed",
+    defaultValue: false,
+  },
+  {
+    name: "familiesAllowed",
+    label: "Families Allowed",
+    defaultValue: false,
+  },
+  {
+    name: "dssIncomeAccepted",
+    label: "dss Income Accepted",
+    defaultValue: false,
+  },
+  {
+    name: "petsAllowed",
+    label: "Pets Allowed",
+    defaultValue: false,
+  },
+  {
+    name: "smokersAllowed",
+    label: "Smokers Allowed",
     defaultValue: false,
   },
 ];

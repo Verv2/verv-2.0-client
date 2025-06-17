@@ -27,7 +27,7 @@ const Pricing = () => {
 
   return (
     <>
-      <section className="w-full bg-[#30455f] py-[36.5]">
+      <section className="w-full bg-[#30455f] py-[36.5px]">
         <div className="w-[1216px] m-auto flex justify-between items-center">
           <div className="w-[616px] flex flex-col items-start gap-8">
             <div className="text-white">
